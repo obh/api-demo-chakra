@@ -199,5 +199,12 @@ https://prismjs.com/download.html#themes=prism-twilight&languages=markup+css+cli
      content: attr(data-end);
      top: auto;
  }
+
+ .highlight-line {
+    background-color: rgba(228, 232, 18, 0.1);
+    margin: 0 -0.75rem;
+    padding: 0 0.75rem;
+    z-index: 100;
+  }
  
  

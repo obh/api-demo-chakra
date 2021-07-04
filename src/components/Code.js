@@ -8,7 +8,9 @@ import { DataToJson } from '../data';
 function ListenToHook(){
     const hostname = "http://gamma.cashfree.com/pgnextgenapi/api/v1/"
     const codePayload = useSelector((state) => DataToJson(state.counter.code))      
+    const lineEdited = useSelector((state) => state.counter.lineEdited)
 
+    console.log("line edited is -> ", lineEdited)
     let payload = {
         "order_amount" : 10.2
     }
@@ -23,7 +25,8 @@ function ListenToHook(){
     
     console.log("The map is --> ", JSON.stringify(codePayload, null, 2))
     console.log("Updated code after change in any input value!")
-    return <PrismCode code={curl} language="js" />
+    //7 comes from the fact there are 7 static lines above this.
+    return <PrismCode code={curl} language="js" lineEdited={lineEdited < 0? -1 : 7 + lineEdited} />
 }
 
 const Code = () => (

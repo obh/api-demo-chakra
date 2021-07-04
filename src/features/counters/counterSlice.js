@@ -6,6 +6,7 @@ const initialState = {
     value: 0,
     active_step: 0,
     order_id: 0,
+    lineEdited: -1,
     code: ParseDataForRedux(InputData)
 }
 
@@ -38,19 +39,24 @@ export const counterSlice = createSlice({
     },
     setInputParamValue: (state, action) => {
       
-      function updateInputParam(input, action){
+      function updateInputParam(input, action, lineNum){
         for(const item of input){
+          if(item.type == "string"){
+            lineNum += 1
+          }
           if(item.type == "object"){
-            return updateInputParam(item.properties, action)
+            return updateInputParam(item.properties, action, lineNum)
           }
           if(item.inputParamKey == action.payload[0]){
             console.log("updating param in code: ", action.payload[0])
             item.value = action.payload[1]
+            state.lineEdited = lineNum
+            console.log("Line updated => ", state.lineEdited)
           }
         }
       }      
       console.log("updating code...with action -> ", action)
-      updateInputParam(state.code, action)
+      updateInputParam(state.code, action, 0)
     }
   },
 })
