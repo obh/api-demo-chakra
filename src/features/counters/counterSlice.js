@@ -1,12 +1,12 @@
 import { defaultStandaloneParam } from '@chakra-ui/react'
 import { createSlice } from '@reduxjs/toolkit'
-import InputData from '../../data'
+import InputData, {ParseDataForRedux} from '../../data'
 
 const initialState = { 
     value: 0,
     active_step: 0,
     order_id: 0,
-    code: InputData
+    code: ParseDataForRedux(InputData)
 }
 
 
@@ -37,23 +37,20 @@ export const counterSlice = createSlice({
         console.log("action is ", action)  
     },
     setInputParamValue: (state, action) => {
-
-      return {
-        ...state,
-        code: state.code.map(inputGroup => {
-          return { ...inputGroup,
-            inputs: inputGroup.inputs.map(input => {
-              if(input.inputParamKey !== action.payload[0]){
-                return input
-              }
-              return {
-                ...input,
-                value: action.payload[1]
-              }
-            })
+      
+      function updateInputParam(input, action){
+        for(const item of input){
+          if(item.type == "object"){
+            return updateInputParam(item.properties, action)
           }
-        })
-      }
+          if(item.inputParamKey == action.payload[0]){
+            console.log("updating param in code: ", action.payload[0])
+            item.value = action.payload[1]
+          }
+        }
+      }      
+      console.log("updating code...with action -> ", action)
+      updateInputParam(state.code, action)
     }
   },
 })

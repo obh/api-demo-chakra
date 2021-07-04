@@ -17,6 +17,7 @@ import InputData from '../data'
 function Api(props) {
     const {name, description} = props
     let inputGroups = InputData
+    console.log("API object --> ", inputGroups)
 
     return (
     <div>

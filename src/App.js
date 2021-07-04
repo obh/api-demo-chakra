@@ -12,16 +12,20 @@ function App() {
   return (
     <div>
         <CNavBar/>
-          <Link to="two">Two</Link>
+          {/* <Link to="two">Two</Link> */}
            <Grid
-              h="500px"
+              h="500px" pt={8}
               templateColumns="repeat(6, 1fr)"
-              gap={4}>
+              gap={4} bg="#fafafa" >
                 <GridItem rowSpan={2} colSpan={3} >
-                  <Main/>
+                  <Box ml="4" mr="2">
+                    <Main/>
+                  </Box>
                 </GridItem>
                 <GridItem rowSpan={2} colSpan={3} >
-                  <Code/>
+                  <Box ml="2" mr="4">
+                    <Code/>
+                  </Box>
                 </GridItem>
             </Grid>
       </div>

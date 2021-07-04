@@ -4,6 +4,10 @@ import InputBox from './InputBox'
 
 function InputGroup(props) {
     const {name, description, inputs} = props
+    console.log("to input group -> ", inputs)
+    inputs.map(function(item, i){
+        console.log(item)
+    })
 
     return (
         <div>

@@ -22,8 +22,7 @@ function ListenToHook(){
         + "  --data \n'" + JSON.stringify(codePayload, null, 2) + "'\n" 
     
     console.log("The map is --> ", JSON.stringify(codePayload, null, 2))
-    //return <div>The orderId is: {create_order_order_id}</div>
-    console.log("AM I HERE??")
+    console.log("Updated code after change in any input value!")
     return <PrismCode code={curl} language="js" />
 }
 

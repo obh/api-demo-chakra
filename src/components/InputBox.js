@@ -1,7 +1,9 @@
 import React from 'react'
 import {
+    Box,
     Input,
-    InputGroup
+    InputGroup,
+    InputLeftAddon
  } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
 import {setInputParamValue} from '../features/counters/counterSlice'
@@ -16,17 +18,20 @@ function InputBox(props){
     const dispatch = useDispatch()
 
     function handleChange(event){
-        console.log("what is validatory?", inputValidator)
-        let err = inputValidator(event.target.value)
-        dispatch(setInputParamValue(["order_id", event.target.value]))
+        console.log("what is validatory?", event)
+        //let err = inputValidator(event.target.value)
+        dispatch(setInputParamValue([inputParamKey, event.target.value]))
         setValue(event.target.value)
     }
 
     return (
+        <Box mb={2} mt={2}>
         <InputGroup>
+            <InputLeftAddon children={inputParamKey} />
             <Input variant="outline" key={inputParamKey} placeholder={inputDefault}
          isInvalid={errors.length > 0} onBlur={handleChange}/>
          </InputGroup>
+         </Box>
     )
 }
 
