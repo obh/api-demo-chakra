@@ -14,7 +14,7 @@ function App() {
         <CNavBar/>
           {/* <Link to="two">Two</Link> */}
            <Grid
-              h="500px" pt={8}
+              h="800px" pt={8}
               templateColumns="repeat(6, 1fr)"
               gap={4} bg="#fafafa" >
                 <GridItem rowSpan={2} colSpan={3} >

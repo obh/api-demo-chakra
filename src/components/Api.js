@@ -11,6 +11,8 @@ import {SimpleGrid,
     AccordionItem,
     AccordionPanel,
     Box,
+    Heading,
+    Text,
     } from '@chakra-ui/react'
 import InputData from '../data'
 
@@ -21,10 +23,10 @@ function Api(props) {
 
     return (
     <div>
-        <p>This is the API element. This will contain a list of InputGroups</p>
-        <p>Name: {name}</p>
-        <p>description: {description}</p>
-
+        <Box pb={4}>
+        <Heading pb={2} as="h2" size="xl">{name}</Heading>
+        <Text fontSize="xl">{description}</Text>
+        </Box>
         <Accordion allowMultiple>
   
         {inputGroups.map(function(item, i){
@@ -45,7 +47,7 @@ function Api(props) {
                   <InputGroup key={item.groupKey} name={item.groupName} description={item.groupDescription} 
                     inputs={item.properties}/>
                 : <InputBox inputDefault={item.value} key={item.inputParamKey} inputName={item.inputName} inputParamKey={item.inputParamKey}
-                        inputValidator={item.inputValidator} />}
+                        inputValidator={item.inputValidator} inputDesc={item.inputDescription}/>}
                 </AccordionPanel>            
                 </AccordionItem>
             )

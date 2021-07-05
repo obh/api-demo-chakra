@@ -1,5 +1,5 @@
 import React from 'react'
-import {SimpleGrid} from '@chakra-ui/react'
+import {Text} from '@chakra-ui/react'
 import InputBox from './InputBox'
 
 function InputGroup(props) {
@@ -11,13 +11,13 @@ function InputGroup(props) {
 
     return (
         <div>
-            <p>Description: {description}</p>
+            <Text fontSize="lg">{description}</Text>
                 {inputs.map(function(item, index){
                     return (
                         //inputName, inputParamKey, inputDefault, inputValidator
                         <InputBox key={item.inputParamKey} inputName={item.inputName} 
                             inputParamKey={item.inputParamKey} inputDefault={item.value} 
-                            inputValidator={item.inputValidator}/>
+                            inputValidator={item.inputValidator} inputDesc={item.inputDescription} />
                     )
                 })}
         </div>

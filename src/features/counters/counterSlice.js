@@ -45,7 +45,8 @@ export const counterSlice = createSlice({
             lineNum += 1
           }
           if(item.type == "object"){
-            return updateInputParam(item.properties, action, lineNum)
+            //line + 1, since there will be an object here
+            return updateInputParam(item.properties, action, lineNum+1)
           }
           if(item.inputParamKey == action.payload[0]){
             console.log("updating param in code: ", action.payload[0])

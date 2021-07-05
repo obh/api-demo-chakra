@@ -5,14 +5,15 @@ let InputData = [
         "type": "string",
         "inputParamKey": "order_id",
         "inputName": "Order Id",
-        "value" : Date.now(),
+        "inputDescription": "OrderID is used to track the payment",
+        "value" : "order_" + Date.now(),
         "inputValidator": ValidateOrderId
     },
     {
         "type": "object",
         "groupName": "Customer Details",
         "groupKey": "customer_details",
-        "groupDescription": "Customer details for this order",
+        "groupDescription": "You need to send customer details for every order.",
         "properties": [
             {   
                 "type": "string",
@@ -29,7 +30,46 @@ let InputData = [
                 "inputValidator": ValidateOrderId
             }
         ]
-    }
+    }, 
+    {
+        "type": "string",
+        "inputParamKey": "order_amount",
+        "inputName": "Order Amount",
+        "value" : 10,
+        "inputValidator": ValidateOrderId
+    },
+    {
+        "type": "string",
+        "inputParamKey": "order_currency",
+        "inputName": "Order Currency",
+        "value" : "INR",
+        "inputValidator": ValidateOrderId
+    },
+    {
+        "type": "object",
+        "groupName": "Additional order details",
+        "groupKey": "order_meta",
+        "groupDescription": "Additional info for payment processing",
+        "properties": [
+            {   
+                "type": "string",
+                "inputName": "Return url",
+                "inputDescription": "Card and net banking payments require customers to be redirected to banks OTP \
+                    page and then be redirected back to merchant website. The returnURL specifies where customer \
+                    will return to on your page.",
+                "inputParamKey": "return_url",
+                "value": "https://ngrok.io/return_cashfree?order={order_id}&token={order_token}",
+                "inputValidator": ValidateOrderId
+            },
+            {
+                "type": "string",
+                "inputName": "Notification URL",
+                "inputParamKey": "notify_url",
+                "value": "https://ngrok.io/notify_cashfree?order={order_id}&token={order_token}",
+                "inputValidator": ValidateOrderId
+            }
+        ]
+    }, 
 ]
 
 export function DataToJson(data){

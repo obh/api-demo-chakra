@@ -6,21 +6,29 @@ import {
   AccordionPanel,
   AccordionIcon,
   Box,
-  chakra,
+  Badge,
+  Heading,
+  Text,
   Input,
-  SimpleGrid,
-  Stat,
-  StatLabel,
-  StatNumber,
-  useColorModeValue,
+  Popover,
+  PopoverTrigger,
+  Button,
+  Portal,
+  PopoverContent,
+  PopoverArrow,
+  PopoverHeader,
+  PopoverCloseButton,
+  PopoverBody
 } from '@chakra-ui/react';
+import { InfoOutlineIcon } from '@chakra-ui/icons'
 import { Switch, Route } from 'react-router-dom'
 import FullRoster from './FullRoster'
 import Player from './Player'
 import { useSelector, useDispatch } from 'react-redux'
 import {increment, decrement, incrementByAmount, setOrderId} from '../features/counters/counterSlice'
-import {Validate} from './Validation'
+import {Validate, ValidateOrderId} from './Validation'
 import Api from './Api'
+import InputBox from './InputBox';
 
 
 function StatsCard(props) {
@@ -60,15 +68,131 @@ function StatsCard(props) {
   );
 }
 
+function DocInfoIcon(props){
+  const {title, text} = props
+  return (
+    <Popover>
+    <PopoverTrigger>
+    <InfoOutlineIcon ml={1} mr={1}/>
+    </PopoverTrigger>
+    <Portal>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverHeader><b>{title}</b></PopoverHeader>
+        <PopoverCloseButton />
+        <PopoverBody>
+          {text}
+        </PopoverBody>
+      </PopoverContent>
+    </Portal>
+  </Popover>
+  )
+}
 
-const CreateOrder = () => (
-      <Api name="create order api" description="This is the create order API"/>
-      // <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, lg: 8 }}>
-      //   <StatsCard paramId={'order_id'} stat={'Used to track this order'} />
-      //   <StatsCard paramId={'order_amount'} stat={'order amount'} />
-      //   <StatsCard paramId={'order_currency'} stat={'order amount'} />
-      //   <StatsCard paramId={'customer_details'} stat={'Customer details'} />
-      // </SimpleGrid>
+
+const CreateOrder = () => {
+  const name = "create order api"
+  const description = "The create order API is the first step to process payments. \
+  This API will fetch you an order token which can be used to complete the payment."
+  return (
+        <div>
+        <Box pb={4}>
+        <Heading pb={2} as="h2" size="xl">
+          <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 1 </Badge>
+          {name}
+        </Heading>
+        <Text fontSize="xl">{description}</Text>
+        </Box>
+        <Accordion allowMultiple>
+          <AccordionItem key="order_id">
+            <h2>
+            <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
+                <Box flex="1" textAlign="left">
+                  Order Id
+                </Box>
+                <AccordionIcon />
+            </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>   
+              <InputBox inputDefault="order_123" key="order_id" inputName="Order Id" 
+                  inputParamKey="order_id" inputValidator={ValidateOrderId} 
+                  inputDesc="OrderID is used to track the payment"/>
+      
+            </AccordionPanel>            
+          </AccordionItem>
+          <AccordionItem key="order_amount">
+            <h2>
+            <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
+                <Box flex="1" textAlign="left">
+                  Order Amount
+                </Box>
+                <AccordionIcon />
+            </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>   
+              <InputBox inputDefault={10.1} key="order_amount" inputName="Order amount" 
+                  inputParamKey="order_amount" inputValidator={ValidateOrderId}  />
+            </AccordionPanel>            
+          </AccordionItem>
+          <AccordionItem key="order_currency">
+            <h2>
+            <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
+                <Box flex="1" textAlign="left">
+                Order Currency
+                </Box>
+                <AccordionIcon />
+            </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>   
+              <InputBox inputDefault="INR" key="order_currency" inputName="Order Currency" 
+                  inputParamKey="order_currency" inputValidator={ValidateOrderId}  />
+            </AccordionPanel>            
+          </AccordionItem>
+          <AccordionItem key="customer_details">
+            <h2>
+            <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
+                <Box flex="1" textAlign="left">
+                Customer Details
+                </Box>
+                <AccordionIcon />
+            </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>   
+            <Text fontSize="md">You need to send customer details for every order.</Text>
+              <InputBox inputDefault="support@cashfree.com" key="customer_email" inputName="Customer Email" 
+                  inputParamKey="customer_email" inputValidator={ValidateOrderId}  />
+              <InputBox inputDefault="9816512345" key="customer_phone" inputName="Customer Phone" 
+                  inputParamKey="customer_phone" inputValidator={ValidateOrderId}  />                  
+            </AccordionPanel>            
+          </AccordionItem>
+          <AccordionItem key="orders_meta">
+            <h2>
+            <AccordionButton _expanded={{ bg: "#262626", color: "white" }} >
+                <Box flex="1" textAlign="left">
+                Additional details
+                </Box>
+                <AccordionIcon />
+            </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>   
+            <Text pb={2} fontSize="md">This additional info is used for payment processing and notificaiton. 
+            Return url tell us which page to redirect customer to after payment 
+              <DocInfoIcon title="Return URL" text="Card and net banking payments require customers to be redirected to banks OTP 
+                    page and then be redirected back to merchant website. The returnURL specifies where customer 
+                    will return to on your page. Note: you must pass two placeholders in the return url 
+                    {order_id} and {order_token}. We will issue a link based redirection to this url." /> </Text>
+             <Text pb={2} fontSize="md"> The notification url will be invoked as soon as order is successfully 
+             paid. Use services like ngrok, webhook.site to test notifications.</Text> 
+              <InputBox inputDefault="support@cashfree.com" key="return_url" inputName="Return URL" 
+                  inputParamKey="return_url" inputValidator={ValidateOrderId}  />
+              <InputBox inputDefault="9816512345" key="notify_url" inputName="Notification URL" 
+                  inputParamKey="notify_url" inputValidator={ValidateOrderId}  />                  
+            </AccordionPanel>            
+          </AccordionItem>
+        </Accordion>
+        </div>
+    
 )
+}
 
 export default CreateOrder
