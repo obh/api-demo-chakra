@@ -7,6 +7,8 @@ import {
   AccordionIcon,
   Box,
   Badge,
+  Grid,
+  GridItem,
   Heading,
   Text,
   Input,
@@ -29,6 +31,7 @@ import {increment, decrement, incrementByAmount, setOrderId} from '../features/c
 import {Validate, ValidateOrderId} from './Validation'
 import Api from './Api'
 import InputBox from './InputBox';
+import Code from './Code';
 
 
 function StatsCard(props) {
@@ -95,7 +98,12 @@ const CreateOrder = () => {
   const description = "The create order API is the first step to process payments. \
   This API will fetch you an order token which can be used to complete the payment."
   return (
-        <div>
+      <Grid
+      h="800px" pt={8}
+      templateColumns="repeat(6, 1fr)"
+      gap={4} bg="#fafafa" >
+        <GridItem rowSpan={2} colSpan={3} >
+                  <Box ml="4" mr="2">
         <Box pb={4}>
         <Heading pb={2} as="h2" size="xl">
           <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 1 </Badge>
@@ -190,7 +198,14 @@ const CreateOrder = () => {
             </AccordionPanel>            
           </AccordionItem>
         </Accordion>
-        </div>
+        </Box>
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} >
+          <Box ml="2" mr="4">
+            <Code/>
+          </Box>
+        </GridItem>
+    </Grid>
     
 )
 }
