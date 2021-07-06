@@ -46,8 +46,8 @@ export class PrismCode extends React.Component {
   //   }
   // }
   render() {
-    const { code, plugins, language, lineEdited } = this.props
-    console.log("LINE EDITED -> ", lineEdited)
+    const { code, plugins, language, highlightStart, highlightEnd } = this.props
+    console.log("LINE EDITED -> ", highlightEnd, highlightEnd)
     return (
       <Highlight {...defaultProps} theme={theme} code={code} language="jsx">
        {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -55,7 +55,7 @@ export class PrismCode extends React.Component {
         {tokens.map((line, i) => {
           //console.log(i);
           const lineProps = getLineProps({ line, key: i });
-          if (i === lineEdited) {
+          if (i >= highlightStart && i <= highlightEnd) {
             lineProps.className = `${lineProps.className} highlight-line`;
           }
           return (

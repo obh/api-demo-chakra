@@ -39,25 +39,22 @@ export const counterSlice = createSlice({
     },
     setInputParamValue: (state, action) => {
       
-      function updateInputParam(input, action, lineNum){
-        for(const item of input){
-          if(item.type == "string"){
-            lineNum += 1
-          }
+      function updateInputParam(input, action){
+        for(const item of input){         
           if(item.type == "object"){
             //line + 1, since there will be an object here
-            return updateInputParam(item.properties, action, lineNum+1)
+            updateInputParam(item.properties, action)
           }
-          if(item.inputParamKey == action.payload[0]){
+          else if(item.type == "string" && item.inputParamKey == action.payload[0]){
             console.log("updating param in code: ", action.payload[0])
             item.value = action.payload[1]
-            state.lineEdited = lineNum
+            state.lineEdited = item.lineNum
             console.log("Line updated => ", state.lineEdited)
           }
         }
       }      
       console.log("updating code...with action -> ", action)
-      updateInputParam(state.code, action, 0)
+      updateInputParam(state.code, action)
     }
   },
 })

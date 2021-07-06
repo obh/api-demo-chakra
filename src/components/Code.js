@@ -9,6 +9,7 @@ function ListenToHook(){
     const hostname = "http://gamma.cashfree.com/pgnextgenapi/api/v1/"
     const codePayload = useSelector((state) => DataToJson(state.counter.code))      
     const lineEdited = useSelector((state) => state.counter.lineEdited)
+    const lineHighlight = lineEdited < 0 ? -1 : 7 + lineEdited
 
     console.log("line edited is -> ", lineEdited)
     let payload = {
@@ -26,7 +27,7 @@ function ListenToHook(){
     console.log("The map is --> ", JSON.stringify(codePayload, null, 2))
     console.log("Updated code after change in any input value!")
     //7 comes from the fact there are 7 static lines above this.
-    return <PrismCode code={curl} language="js" lineEdited={lineEdited < 0? -1 : 7 + lineEdited} />
+    return <PrismCode code={curl} language="js" highlightStart={lineHighlight} highlightEnd={lineHighlight} />
 }
 
 const Code = () => (

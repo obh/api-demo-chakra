@@ -32,6 +32,8 @@ import {Validate, ValidateOrderId} from './Validation'
 import Api from './Api'
 import InputBox from './InputBox';
 import Code from './Code';
+import { PrismCode } from './Prismcode';
+import { waitForElementToBeRemoved } from '@testing-library/react';
 
 
 function StatsCard(props) {
@@ -92,14 +94,102 @@ function DocInfoIcon(props){
   )
 }
 
+function APIResponse(){
+  const [startHighlight, setStartHighlight] = React.useState(0);
+  const [endHighlight, setEndHighlight] = React.useState(0);
+  console.log("Highlight range: ", startHighlight, endHighlight)
+
+  const createOrderResponse = `{
+        "cf_order_id": 498327264,
+        "order_id": "order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a",
+        "entity": "order",
+        "order_currency": "INR",
+        "order_amount": 1.01,
+        "order_expiry_time": "2021-08-05T18:19:18+05:30",
+        "customer_details": {
+          "customer_id": "718234",
+          "customer_name": null,
+          "customer_email": "john@cashfree.com",
+          "customer_phone": "9908734801"
+        },
+        "order_meta": {
+          "return_url": null,
+          "notify_url": "https://cashfree.com/pg/process_webhook",
+          "payment_methods": null
+        },
+        "settlement_details": {
+          "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/settlements?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+        },
+        "payment_attempts": {
+          "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/payments?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+        },
+        "order_status": "ACTIVE",
+        "order_token": "AqtC88khqWACIEPcXGgO",
+        "order_note": null
+      }
+  `
+  return (
+    // <div>
+       <Grid
+      pt={8}
+      templateColumns="repeat(6, 1fr)"
+      gap={4} bg="#fafafa" >
+        <GridItem rowSpan={2} colSpan={3} >
+        <div>      
+          <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
+            pt={2} pb={2} pr={2} pl={2}
+            onMouseEnter={() => {setStartHighlight(1); setEndHighlight(6)}}
+            onMouseLeave={() => {setStartHighlight(0); setEndHighlight(-1)}}>
+              <Heading size="md" mb={4}>Basic details</Heading>
+            For every order creation we share back essential details with you. The <code>order_id</code> represents
+            your identifier. The <code>cf_order_id</code> represents the same resource at Cashfree. 
+            The <code>entity</code> represents the order. <code>order_amount</code> and <code>order_currency</code>
+            are details about the order at Cashfree's end. 
+          </Box>
+          <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
+            pt={2} pb={2} pr={2} pl={2}
+            onMouseEnter={() => {setStartHighlight(7); setEndHighlight(12)}}
+            onMouseLeave={() => {setStartHighlight(-1); setEndHighlight(-1)}}>
+              <Heading size="md" mb={4}>Customer details</Heading>
+            The customer details are used to display saved cards (we use phone number as a 2FA).
+            Other details are used as risk checks and in processing payments with our banking partners.
+          </Box>
+          <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
+            pt={2} pb={2} pr={2} pl={2}
+            onMouseEnter={() => {setStartHighlight(13); setEndHighlight(23)}}
+            onMouseLeave={() => {setStartHighlight(-1); setEndHighlight(-1)}}>
+              <Heading size="md" mb={4}>Additional details</Heading>
+            This <code>return_url</code> tell us where to redirect the user after they have entered the OTP on the bank page.
+            The <code>notify_url</code> is used to send notification after every successful payment. 
+            The <code>settlement_details</code> and <code>payment_details</code> APIs can be used to get more information
+            on the payment and settlement details. Read more here. 
+          </Box>
+          <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
+            pt={2} pb={2} pr={2} pl={2}
+            onMouseEnter={() => {setStartHighlight(24); setEndHighlight(27)}}
+            onMouseLeave={() => {setStartHighlight(-1); setEndHighlight(-1)}}>
+              <Heading size="md" mb={4}>Order Token and status</Heading>
+            This <code>order_status</code> tells the status of this order. The <code>order_token</code> is the client token
+            created for this order. We will use this token to initiate the payment. 
+          </Box>
+        </div>
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} >
+      <PrismCode code={createOrderResponse} language="js" 
+          highlightStart={startHighlight} highlightEnd={endHighlight} />
+      </GridItem>
+      </Grid>
+  )
+}
 
 const CreateOrder = () => {
   const name = "create order api"
   const description = "The create order API is the first step to process payments. \
   This API will fetch you an order token which can be used to complete the payment."
   return (
+    <div>
       <Grid
-      h="800px" pt={8}
+      pt={8}
       templateColumns="repeat(6, 1fr)"
       gap={4} bg="#fafafa" >
         <GridItem rowSpan={2} colSpan={3} >
@@ -206,7 +296,8 @@ const CreateOrder = () => {
           </Box>
         </GridItem>
     </Grid>
-    
+    <APIResponse />
+    </div>
 )
 }
 

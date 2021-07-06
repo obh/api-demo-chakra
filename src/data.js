@@ -1,72 +1,62 @@
 import { ValidateOrderId } from './components/Validation'
 
+//We can also compute lineNum by parsing this json, but I think that it might not be the best way
+//because if we add linewraps, it might break. And there could be other issues as well. 
 let InputData = [
     {
         "type": "string",
-        "inputParamKey": "order_id",
-        "inputName": "Order Id",
-        "inputDescription": "OrderID is used to track the payment",
+        "inputParamKey": "order_id",        
         "value" : "order_" + Date.now(),
-        "inputValidator": ValidateOrderId
+        "lineNum": 1
     },
-    {
-        "type": "object",
-        "groupName": "Customer Details",
-        "groupKey": "customer_details",
-        "groupDescription": "You need to send customer details for every order.",
-        "properties": [
-            {   
-                "type": "string",
-                "inputName": "Email",
-                "inputParamKey": "customer_email",
-                "value": "techsupport@cashfree.com",
-                "inputValidator": ValidateOrderId
-            },
-            {
-                "type": "string",
-                "inputName": "Phone",
-                "inputParamKey": "customer_phone",
-                "value": "9993412345",
-                "inputValidator": ValidateOrderId
-            }
-        ]
-    }, 
     {
         "type": "string",
         "inputParamKey": "order_amount",
-        "inputName": "Order Amount",
         "value" : 10,
-        "inputValidator": ValidateOrderId
+        "lineNum": 2
     },
     {
         "type": "string",
         "inputParamKey": "order_currency",
-        "inputName": "Order Currency",
         "value" : "INR",
-        "inputValidator": ValidateOrderId
+        "lineNum": 3
+
     },
     {
         "type": "object",
-        "groupName": "Additional order details",
-        "groupKey": "order_meta",
-        "groupDescription": "Additional info for payment processing",
+        "groupKey": "customer_details",
+        "lineNum": 4,
         "properties": [
             {   
                 "type": "string",
-                "inputName": "Return url",
-                "inputDescription": "Card and net banking payments require customers to be redirected to banks OTP \
-                    page and then be redirected back to merchant website. The returnURL specifies where customer \
-                    will return to on your page.",
-                "inputParamKey": "return_url",
-                "value": "https://ngrok.io/return_cashfree?order={order_id}&token={order_token}",
-                "inputValidator": ValidateOrderId
+                "inputParamKey": "customer_email",
+                "value": "techsupport@cashfree.com",
+                "lineNum": 5,
             },
             {
                 "type": "string",
-                "inputName": "Notification URL",
+                "inputParamKey": "customer_phone",
+                "value": "9993412345",
+                "lineNum": 6
+            }
+        ]
+    }, 
+    {
+        "type": "object",
+        "groupKey": "order_meta",        
+        "lineNum": 8,
+        "properties": [
+            {   
+                "type": "string",
+                "inputParamKey": "return_url",
+                "value": "https://ngrok.io/return_cashfree?order={order_id}&token={order_token}",
+                "lineNum": 9,
+            },
+            {
+                "type": "string",
                 "inputParamKey": "notify_url",
                 "value": "https://ngrok.io/notify_cashfree?order={order_id}&token={order_token}",
-                "inputValidator": ValidateOrderId
+                "lineNum": 10,
             }
         ]
     }, 
