@@ -19,7 +19,7 @@ function App() {
               // gap={4} bg="#fafafa" >
               //   <GridItem rowSpan={2} colSpan={3} >
               //     <Box ml="4" mr="2"> */}
-                    <Main/>
+                    <Main />
             {/* //       </Box>
             //     </GridItem>
             //     <GridItem rowSpan={2} colSpan={3} >

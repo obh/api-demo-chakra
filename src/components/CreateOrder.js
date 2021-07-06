@@ -5,25 +5,33 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Alert,
+  AlertIcon,
   Box,
   Badge,
+  Container,
   Grid,
   GridItem,
   Heading,
   Text,
   Input,
-  Popover,
   PopoverTrigger,
   Button,
   Portal,
+  Popover,
   PopoverContent,
   PopoverArrow,
   PopoverHeader,
   PopoverCloseButton,
-  PopoverBody
+  PopoverBody,
+  SimpleGrid,
+  Stack,
+  Switch,
+  HStack,
+  VStack,
+  Icon
 } from '@chakra-ui/react';
-import { InfoOutlineIcon } from '@chakra-ui/icons'
-import { Switch, Route } from 'react-router-dom'
+import { InfoOutlineIcon, CheckIcon, WarningIcon } from '@chakra-ui/icons'
 import FullRoster from './FullRoster'
 import Player from './Player'
 import { useSelector, useDispatch } from 'react-redux'
@@ -97,6 +105,8 @@ function DocInfoIcon(props){
 function APIResponse(){
   const [startHighlight, setStartHighlight] = React.useState(0);
   const [endHighlight, setEndHighlight] = React.useState(0);
+  const [showResponse, setShowResponse] = React.useState(false)
+
   console.log("Highlight range: ", startHighlight, endHighlight)
 
   const createOrderResponse = `{
@@ -129,7 +139,13 @@ function APIResponse(){
       }
   `
   return (
-    // <div>
+    <div>
+      <Box height="100px" bg="#fafafa"></Box>
+      <Stack direction="row" ml={4}>
+      <Text>View response for this API?</Text>
+        <Switch colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/>
+        </Stack>
+        {showResponse && 
        <Grid
       pt={8}
       templateColumns="repeat(6, 1fr)"
@@ -178,7 +194,8 @@ function APIResponse(){
       <PrismCode code={createOrderResponse} language="js" 
           highlightStart={startHighlight} highlightEnd={endHighlight} />
       </GridItem>
-      </Grid>
+      </Grid>}
+      </div>
   )
 }
 
@@ -289,6 +306,10 @@ const CreateOrder = () => {
           </AccordionItem>
         </Accordion>
         </Box>
+        <Alert status="warning" mt={12} ml={4}>
+        <AlertIcon />
+        <Text fontSize="sm">You cannot try this API from the browser! </Text>
+        </Alert>
         </GridItem>
         <GridItem rowSpan={2} colSpan={3} >
           <Box ml="2" mr="4">
