@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { PrismCode } from './Prismcode';
 import "../css/prism.css";
-import { DataToJson } from '../data';
+import { DataToJson } from '../pages/CreateOrderData';
 
 
 function ListenToHook(){

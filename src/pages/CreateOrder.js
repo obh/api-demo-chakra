@@ -9,14 +9,12 @@ import {
   AlertIcon,
   Box,
   Badge,
-  Container,
   Grid,
   GridItem,
   Heading,
   Text,
-  Input,
+  Collapse,
   PopoverTrigger,
-  Button,
   Portal,
   Popover,
   PopoverContent,
@@ -24,62 +22,59 @@ import {
   PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
-  SimpleGrid,
   Stack,
   Switch,
-  HStack,
-  VStack,
-  Icon
 } from '@chakra-ui/react';
-import { InfoOutlineIcon, CheckIcon, WarningIcon } from '@chakra-ui/icons'
-import FullRoster from './FullRoster'
-import Player from './Player'
+import { InfoOutlineIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons'
+import FullRoster from '../components/FullRoster'
+import Player from '../components/Player'
 import { useSelector, useDispatch } from 'react-redux'
 import {increment, decrement, incrementByAmount, setOrderId} from '../features/counters/counterSlice'
-import {Validate, ValidateOrderId} from './Validation'
-import Api from './Api'
-import InputBox from './InputBox';
-import Code from './Code';
-import { PrismCode } from './Prismcode';
-import { waitForElementToBeRemoved } from '@testing-library/react';
+import {Validate, ValidateOrderId} from '../components/Validation'
+import Api from '../components/Api'
+import InputBox from '../components/InputBox';
+import Code from '../components/Code';
+import Stepper from '../components/Stepper';
+import { PrismCode } from '../components/Prismcode';
+import {stepData, createOrderResponse} from './CreateOrderData'
 
 
-function StatsCard(props) {
-  const { paramId, stat } = props;
-  const [value, setValue] = React.useState("")
-  const [errors, setErrors] = React.useState("")
+// function StatsCard(props) {
+//   const { paramId, stat } = props;
+//   const [value, setValue] = React.useState("")
+//   const [errors, setErrors] = React.useState("")
   
-  const dispatch = useDispatch()
-  //const handleChange = (event) => setValue(event.target.value)
+//   const dispatch = useDispatch()
+//   //const handleChange = (event) => setValue(event.target.value)
 
-  function handleChange(event) {
-    let err = Validate(paramId, event.target.value)
-    dispatch(setOrderId(event.target.value))
-    console.log(event)
-    setValue(event.target.value)
-    setErrors(err)
-  }
+//   function handleChange(event) {
+//     let err = Validate(paramId, event.target.value)
+//     dispatch(setOrderId(event.target.value))
+//     console.log(event)
+//     setValue(event.target.value)
+//     setErrors(err)
+//   }
 
-  return (
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-                {paramId}
-            </Box>
-            <AccordionIcon/>
-          </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            hello to the fucking world!
-            {stat}
-            <Input isInvalid={errors.length > 0} onBlur={handleChange} variant="outline" placeholder="Outline" />
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-  );
-}
+//   return (
+//       <Accordion allowToggle>
+//         <AccordionItem>
+//           <h2>
+//           <AccordionButton>
+//             <Box flex="1" textAlign="left">
+//                 {paramId}
+//             </Box>
+//             <AccordionIcon/>
+//           </AccordionButton>
+//           </h2>
+//           <AccordionPanel pb={4}>
+//             hello to the fucking world!
+//             {stat}
+//             <Input isInvalid={errors.length > 0} onBlur={handleChange} variant="outline" placeholder="Outline" />
+//           </AccordionPanel>
+//         </AccordionItem>
+//       </Accordion>
+//   );
+// }
 
 function DocInfoIcon(props){
   const {title, text} = props
@@ -109,43 +104,20 @@ function APIResponse(){
 
   console.log("Highlight range: ", startHighlight, endHighlight)
 
-  const createOrderResponse = `{
-        "cf_order_id": 498327264,
-        "order_id": "order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a",
-        "entity": "order",
-        "order_currency": "INR",
-        "order_amount": 1.01,
-        "order_expiry_time": "2021-08-05T18:19:18+05:30",
-        "customer_details": {
-          "customer_id": "718234",
-          "customer_name": null,
-          "customer_email": "john@cashfree.com",
-          "customer_phone": "9908734801"
-        },
-        "order_meta": {
-          "return_url": null,
-          "notify_url": "https://cashfree.com/pg/process_webhook",
-          "payment_methods": null
-        },
-        "settlement_details": {
-          "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/settlements?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
-        },
-        "payment_attempts": {
-          "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/payments?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
-        },
-        "order_status": "ACTIVE",
-        "order_token": "AqtC88khqWACIEPcXGgO",
-        "order_note": null
-      }
-  `
+  
   return (
     <div>
-      <Box height="100px" bg="#fafafa"></Box>
-      <Stack direction="row" ml={4}>
-      <Text>View response for this API?</Text>
-        <Switch colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/>
+      <Box height="50px" bg="#fafafa"></Box>
+      <Stack direction="row">      
+      <Alert status="info" ml={4} mr={4} height="60px">
+        {!showResponse ? <LockIcon w={6} h={6}  /> : <UnlockIcon w={6} h={6} />}
+        <Text ml={2} fontSize="smm">View api response 
+          <Switch ml={2} colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/> </Text>
+      </Alert>
+        
         </Stack>
-        {showResponse && 
+        {/* {showResponse &&  */}
+        <Collapse in={showResponse} animateOpacity>
        <Grid
       pt={8}
       templateColumns="repeat(6, 1fr)"
@@ -194,7 +166,7 @@ function APIResponse(){
       <PrismCode code={createOrderResponse} language="js" 
           highlightStart={startHighlight} highlightEnd={endHighlight} />
       </GridItem>
-      </Grid>}
+      </Grid></Collapse>
       </div>
   )
 }
@@ -203,8 +175,11 @@ const CreateOrder = () => {
   const name = "create order api"
   const description = "The create order API is the first step to process payments. \
   This API will fetch you an order token which can be used to complete the payment."
+  const step = 0
+  
   return (
     <div>
+      <Stepper activeIndex={1} stepDetails={stepData}/>
       <Grid
       pt={8}
       templateColumns="repeat(6, 1fr)"

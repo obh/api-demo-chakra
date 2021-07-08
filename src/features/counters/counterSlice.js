@@ -1,13 +1,13 @@
 import { defaultStandaloneParam } from '@chakra-ui/react'
 import { createSlice } from '@reduxjs/toolkit'
-import InputData, {ParseDataForRedux} from '../../data'
+import InputData from '../../pages/CreateOrderData'
 
 const initialState = { 
     value: 0,
     active_step: 0,
     order_id: 0,
     lineEdited: -1,
-    code: ParseDataForRedux(InputData)
+    code: InputData
 }
 
 
@@ -25,14 +25,7 @@ export const counterSlice = createSlice({
       state.value += 1
       console.log("Incremented by 1, curr value: ", state.value)
     },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      //state.value += action.payload
-      console.log("in increment by amount")
-      console.log(action)
-    },
+   
     setOrderId: (state, action) => {
         state.create_order_order_id = action.payload
         console.log("action is ", action)  
@@ -42,7 +35,6 @@ export const counterSlice = createSlice({
       function updateInputParam(input, action){
         for(const item of input){         
           if(item.type == "object"){
-            //line + 1, since there will be an object here
             updateInputParam(item.properties, action)
           }
           else if(item.type == "string" && item.inputParamKey == action.payload[0]){
@@ -60,6 +52,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount, setOrderId, setInputParamValue } = counterSlice.actions
+export const { increment, setOrderId, setInputParamValue } = counterSlice.actions
 
 export default counterSlice.reducer

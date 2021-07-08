@@ -5,6 +5,7 @@ import { Grid, GridItem, Box } from "@chakra-ui/react"
 import CNavBar from './components/Navbar'
 import Main from './components/Main'
 import Code from './components/Code'
+import Footer from './components/Footer'
 import './App.css';
 
 
@@ -28,6 +29,7 @@ function App() {
             //       </Box>
             //     </GridItem>
             // </Grid> */}
+            <Footer/>
       </div>
     );
 }
