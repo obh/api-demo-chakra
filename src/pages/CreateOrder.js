@@ -9,9 +9,12 @@ import {
   AlertIcon,
   Box,
   Badge,
+  Button,
+  Flex,
   Grid,
   GridItem,
   Heading,
+  LinkOverlay,
   Text,
   Collapse,
   PopoverTrigger,
@@ -22,20 +25,17 @@ import {
   PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
+  Spacer, 
   Stack,
   Switch,
 } from '@chakra-ui/react';
-import { InfoOutlineIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons'
-import FullRoster from '../components/FullRoster'
-import Player from '../components/Player'
-import { useSelector, useDispatch } from 'react-redux'
-import {increment, decrement, incrementByAmount, setOrderId} from '../features/counters/counterSlice'
-import {Validate, ValidateOrderId} from '../components/Validation'
-import Api from '../components/Api'
+import { InfoOutlineIcon, LockIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import { ValidateOrderId} from '../components/Validation'
 import InputBox from '../components/InputBox';
-import Code from '../components/Code';
+import Code from './CreateOrderAPI';
 import Stepper from '../components/Stepper';
 import { PrismCode } from '../components/Prismcode';
+import {CREATE_ORDER_GROUP} from '../features/constants'
 import {stepData, createOrderResponse} from './CreateOrderData'
 
 
@@ -109,14 +109,20 @@ function APIResponse(){
     <div>
       <Box height="50px" bg="#fafafa"></Box>
       <Stack direction="row">      
-      <Alert status="info" ml={4} mr={4} height="60px">
+      
+      <Alert status="info" ml={4} mr={4} height="60px">        
         {!showResponse ? <LockIcon w={6} h={6}  /> : <UnlockIcon w={6} h={6} />}
         <Text ml={2} fontSize="smm">View api response 
           <Switch ml={2} colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/> </Text>
+          <Spacer/>
+          <LinkOverlay href="/pay-order">
+            <Button rightIcon={<ArrowForwardIcon />} colorScheme="black" variant="outline">
+            Next Step
+            </Button>
+          </LinkOverlay>
       </Alert>
         
         </Stack>
-        {/* {showResponse &&  */}
         <Collapse in={showResponse} animateOpacity>
        <Grid
       pt={8}
@@ -185,16 +191,16 @@ const CreateOrder = () => {
       templateColumns="repeat(6, 1fr)"
       gap={4} bg="#fafafa" >
         <GridItem rowSpan={2} colSpan={3} >
-                  <Box ml="4" mr="2">
-        <Box pb={4}>
-        <Heading pb={2} as="h2" size="xl">
-          <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 1 </Badge>
-          {name}
-        </Heading>
-        <Text fontSize="xl">{description}</Text>
-        </Box>
-        <Accordion allowMultiple>
-          <AccordionItem key="order_id">
+        <Box ml="4" mr="2">
+          <Box pb={4}>
+            <Heading pb={2} as="h2" size="xl">
+              <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 1 </Badge>
+              {name}
+            </Heading>
+             <Text fontSize="xl">{description}</Text>
+          </Box>
+          <Accordion allowMultiple>
+            <AccordionItem key="order_id">
             <h2>
             <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
                 <Box flex="1" textAlign="left">
@@ -204,7 +210,7 @@ const CreateOrder = () => {
             </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>   
-              <InputBox inputDefault="order_123" key="order_id" inputName="Order Id" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="order_123" key="order_id" inputName="Order Id" 
                   inputParamKey="order_id" inputValidator={ValidateOrderId} 
                   inputDesc="OrderID is used to track the payment"/>
       
@@ -220,7 +226,7 @@ const CreateOrder = () => {
             </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>   
-              <InputBox inputDefault={10.1} key="order_amount" inputName="Order amount" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault={10.1} key="order_amount" inputName="Order amount" 
                   inputParamKey="order_amount" inputValidator={ValidateOrderId}  />
             </AccordionPanel>            
           </AccordionItem>
@@ -234,7 +240,7 @@ const CreateOrder = () => {
             </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>   
-              <InputBox inputDefault="INR" key="order_currency" inputName="Order Currency" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="INR" key="order_currency" inputName="Order Currency" 
                   inputParamKey="order_currency" inputValidator={ValidateOrderId}  />
             </AccordionPanel>            
           </AccordionItem>
@@ -249,9 +255,9 @@ const CreateOrder = () => {
             </h2>
             <AccordionPanel pb={4}>   
             <Text fontSize="md">You need to send customer details for every order.</Text>
-              <InputBox inputDefault="support@cashfree.com" key="customer_email" inputName="Customer Email" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="techsupport@cashfree.com" key="customer_email" inputName="Customer Email" 
                   inputParamKey="customer_email" inputValidator={ValidateOrderId}  />
-              <InputBox inputDefault="9816512345" key="customer_phone" inputName="Customer Phone" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="9816512345" key="customer_phone" inputName="Customer Phone" 
                   inputParamKey="customer_phone" inputValidator={ValidateOrderId}  />                  
             </AccordionPanel>            
           </AccordionItem>
@@ -273,9 +279,9 @@ const CreateOrder = () => {
                     {order_id} and {order_token}. We will issue a link based redirection to this url." /> </Text>
              <Text pb={2} fontSize="md"> The notification url will be invoked as soon as order is successfully 
              paid. Use services like ngrok, webhook.site to test notifications.</Text> 
-              <InputBox inputDefault="support@cashfree.com" key="return_url" inputName="Return URL" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="https://ngrok.io/cf/return?order={order_id}&token={order_token}" key="return_url" inputName="Return URL" 
                   inputParamKey="return_url" inputValidator={ValidateOrderId}  />
-              <InputBox inputDefault="9816512345" key="notify_url" inputName="Notification URL" 
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="https://ngrok.io/cf/notfiy.php" key="notify_url" inputName="Notification URL" 
                   inputParamKey="notify_url" inputValidator={ValidateOrderId}  />                  
             </AccordionPanel>            
           </AccordionItem>

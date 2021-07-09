@@ -7,10 +7,10 @@ import {
     Text
  } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux'
-import {setInputParamValue} from '../features/counters/counterSlice'
+import {setInputParamValue, updateParamValue} from '../features/counters/counterSlice'
 
 function InputBox(props){
-    const {inputName, inputParamKey, inputDefault, inputValidator, inputDesc} = props
+    const {inputName, group, inputParamKey, inputDefault, inputValidator, inputDesc} = props
     //we use two states- value and errors in the input
     const [value, setValue] = React.useState("")
     const [errors, setErrors] = React.useState("")
@@ -21,7 +21,7 @@ function InputBox(props){
     function handleChange(event){
         console.log("handleChange event -> ", event)
         //let err = inputValidator(event.target.value)
-        dispatch(setInputParamValue([inputParamKey, event.target.value]))
+        dispatch(updateParamValue([group, inputParamKey, event.target.value]))
         setValue(event.target.value)
     }
 

@@ -2,7 +2,8 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Landing from '../pages/Landing'
 import CreateOrder from '../pages/CreateOrder'
-import PayOrder from './PayOrder'
+//import PayOrder from './PayOrder'
+import OrderPay from '../pages/OrderPay'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -14,7 +15,7 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Landing}/>
       <Route path='/create-order' component={CreateOrder}/>
-      <Route path='/pay_order' component={PayOrder}/>
+      <Route path='/pay-order' component={OrderPay}/>
     </Switch>
   </main>
 )
