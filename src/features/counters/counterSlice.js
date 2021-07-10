@@ -2,7 +2,7 @@ import { defaultStandaloneParam } from '@chakra-ui/react'
 import { createSlice } from '@reduxjs/toolkit'
 // import { startAnimation } from 'framer-motion/types/animation/utils/transitions'
 import InputData from '../../pages/CreateOrderData'
-import {CREATE_ORDER_GROUP, ORDER_PAY_GROUP} from '../constants'
+import {CREATE_ORDER_GROUP, CARD_PAY_GROUP, UPI_PAY_GROUP} from '../constants'
 
 const initialState = { 
     value: 0,
@@ -30,10 +30,15 @@ const initialState = {
       "card_expiry_yy": "24",
       "card_cvv": "123",
       "cf_bank_code": 3021,
-      "vpa": "7760752123@ybl",
-      "phone": "7760752123"
     },
     orderPayUpdatedKey: "",
+
+    upiPay: {
+      "channel": "link",   
+      "upi_id": "7760752123@ybl",
+      "phone": "7760752123"
+    },
+    upiPayUpdatedKey: "",
 }
 
 
@@ -62,9 +67,12 @@ export const counterSlice = createSlice({
       if(groupID == CREATE_ORDER_GROUP){
         state.createOrder[action.payload[1]] = action.payload[2]
         state.createOrderUpdatedKey = action.payload[1]
-      } else if(groupID == ORDER_PAY_GROUP){
+      } else if(groupID == CARD_PAY_GROUP){
         state.orderPay[action.payload[1]] = action.payload[2]
         state.orderPayUpdatedKey = action.payload[1]
+      } else if(groupID == UPI_PAY_GROUP){
+        state.upiPay[action.payload[1]] = action.payload[2]
+        state.upiPayUpdatedKey = action.payload[1]
       }
       console.log("updated param value")
     },

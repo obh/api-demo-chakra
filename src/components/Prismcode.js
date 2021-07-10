@@ -2,6 +2,7 @@ import React from "react"
 import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/nightOwl";
 import styled from 'styled-components'
+import '../css/prism.css'
 
 
 export const Wrapper = styled.div`
@@ -29,33 +30,19 @@ export const LineNo = styled.span`
 
 
 export class PrismCode extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.ref = React.createRef()
-  // }
-  // componentDidMount() {
-  //   this.highlight()
-  // }
-  // componentDidUpdate() {
-  //   this.highlight()
-  // }
-  // highlight = () => {
-  //   if (this.ref && this.ref.current) {
-  //     // Prism.highlightElement(this.ref.current)
-  //     // highlightLines()
-  //   }
-  // }
+
   render() {
     const { code, plugins, language, highlightStart, highlightEnd } = this.props
-    console.log("LINE EDITED -> ", highlightEnd, highlightEnd)
     return (
       <Highlight {...defaultProps} theme={theme} code={code} language="jsx">
        {({ className, style, tokens, getLineProps, getTokenProps }) => (
       <Pre className={className} style={style}>
         {tokens.map((line, i) => {
-          //console.log(i);
+          // console.log(line, i);
           const lineProps = getLineProps({ line, key: i });
           if (i >= highlightStart && i <= highlightEnd) {
+            // console.log("highlighting line....", i)
+            // used from Prism.css
             lineProps.className = `${lineProps.className} highlight-line`;
           }
           return (

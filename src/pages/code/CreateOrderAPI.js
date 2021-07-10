@@ -1,8 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { PrismCode } from '../components/Prismcode';
-import "../css/prism.css";
-import { DataToJson } from './CreateOrderData';
+import { PrismCode } from '../../components/Prismcode';
+import { DataToJson } from '../CreateOrderData';
 
 //This method is required because the curl request could have many deepnested objects
 //If we use the same object in the redux store, things will become complicated from

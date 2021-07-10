@@ -1,46 +1,33 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { PrismCode } from '../components/Prismcode';
-import "../css/prism.css";
+import { PrismCode } from '../../components/Prismcode';
 
-function TransformMapToCurl(updatedKey, payload){
-    switch(updatedKey) {
-        case "card_number":
-        case "card_expiry_mm":
-        case "card_expiry_yy":
-        case "card_cvv":
-            return {
-                "order_token": "TTb06dKJGhWa20VTcm1n",
-                "payment_method" : {
-                    "card" : { 
-                        "channel": "link",
-                        "card_number": payload.card_number,
-                        "card_holder_name": "hello",
-                        "card_expiry_mm" : payload.card_expiry_mm,
-                        "card_expiry_yy" : payload.card_expiry_yy,
-                        "card_cvv" : payload.card_cvv
-                    }
-                }
+function TransformMapToCurl(payload){
+    return {
+        "order_token": "TTb06dKJGhWa20VTcm1n",
+        "payment_method" : {
+            "card" : { 
+                "channel": "link",
+                "card_number": payload.card_number,
+                "card_holder_name": "test card",
+                "card_expiry_mm" : payload.card_expiry_mm,
+                "card_expiry_yy" : payload.card_expiry_yy,
+                "card_cvv" : payload.card_cvv
             }
+        }
     }
 }
 
 function ComputeLinetoHighlight(key){
   switch(key){
-    case "order_id":
+    case "card_number":
       return 1
-    case "order_amount":
-      return 2
-    case "order_currency":
+    case "card_expiry_mm":
       return 3
-    case "customer_email":
+    case "card_expiry_yy":
+      return 4
+    case "card_cvv":
       return 5
-    case "customer_phone":
-      return 6
-    case "return_url": 
-      return 8
-    case "notify_url":
-      return 9
     default:
       return -100 // no line to highlight
   }
@@ -65,7 +52,7 @@ function ListenToHook(){
 
     const curl = ComputePayload(curlBody)
     // number of static lines above this is 6
-    const lineHighlight = 6 + ComputeLinetoHighlight(lineEdited)
+    const lineHighlight = 4 + ComputeLinetoHighlight(lineEdited)
 
     console.log("The map is --> ", JSON.stringify(curlBody, null, 2))
     console.log("Updated code after change in any input value!")

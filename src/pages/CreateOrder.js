@@ -32,7 +32,7 @@ import {
 import { InfoOutlineIcon, LockIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import { ValidateOrderId} from '../components/Validation'
 import InputBox from '../components/InputBox';
-import Code from './CreateOrderAPI';
+import Code from './code/CreateOrderAPI';
 import Stepper from '../components/Stepper';
 import { PrismCode } from '../components/Prismcode';
 import {CREATE_ORDER_GROUP} from '../features/constants'
@@ -215,8 +215,8 @@ const CreateOrder = () => {
                   inputDesc="OrderID is used to track the payment"/>
       
             </AccordionPanel>            
-          </AccordionItem>
-          <AccordionItem key="order_amount">
+            </AccordionItem>
+            <AccordionItem key="order_amount">
             <h2>
             <AccordionButton _expanded={{ bg: "#262626", color: "white" }}>
                 <Box flex="1" textAlign="left">
