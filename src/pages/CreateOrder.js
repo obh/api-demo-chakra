@@ -9,13 +9,11 @@ import {
   AlertIcon,
   Box,
   Badge,
-  Button,
-  Flex,
+  CircularProgress,
+  CircularProgressLabel,
   Grid,
   GridItem,
   Heading,
-  Link,
-  LinkOverlay,
   Text,
   Collapse,
   PopoverTrigger,
@@ -35,7 +33,7 @@ import { ValidateOrderId} from '../components/Validation'
 import InputBox from '../components/InputBox';
 import Code from './code/CreateOrderAPI';
 import Stepper from '../components/Stepper';
-import { PrismCode } from '../components/Prismcode';
+import PrismCode from '../components/Prismcode';
 import {CREATE_ORDER_GROUP} from '../features/constants'
 import {stepData, createOrderResponse} from './CreateOrderData'
 import FooterNav from '../components/FooterNav';
@@ -146,16 +144,16 @@ const CreateOrder = () => {
   return (
     <div>
       <Stepper activeIndex={0} stepDetails={stepData}/>
-      <Grid
-      pt={8}
-      templateColumns="repeat(6, 1fr)"
-      gap={4} bg="#fafafa" >
+      <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa" >
         <GridItem rowSpan={2} colSpan={3} >
         <Box ml="4" mr="2">
           <Box pb={4}>
             <Heading pb={2} as="h2" size="xl">
               <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 1 </Badge>
               {name}
+              <CircularProgress  ml={2} value={10} color="green.400" size="40px" thickness="6px">
+                <CircularProgressLabel>5 min</CircularProgressLabel>
+              </CircularProgress>
             </Heading>
              <Text fontSize="xl">{description}</Text>
           </Box>

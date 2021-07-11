@@ -23,7 +23,7 @@ import {
   } from '@chakra-ui/react';
 import Stepper from '../components/Stepper';
 import {stepData} from './CreateOrderData'
-import { PrismCode } from '../components/Prismcode';
+import PrismCode from '../components/Prismcode';
 import InlineCode from '../components/InlineCode';
 import FooterNav from '../components/FooterNav';
 

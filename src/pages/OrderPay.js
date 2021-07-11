@@ -30,7 +30,7 @@ import {CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../fea
 import { ValidateOrderId} from '../components/Validation'
 import InputBox from '../components/InputBox';
 import InlineCode from '../components/InlineCode';
-import { PrismCode } from '../components/Prismcode';
+import PrismCode from '../components/Prismcode';
 import FooterNav from '../components/FooterNav';
 import OrderPayCode from './code/CardPayCode'
 import UPIPayCode from './code/UPIPayCode';

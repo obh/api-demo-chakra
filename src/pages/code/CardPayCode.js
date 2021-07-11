@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { PrismCode } from '../../components/Prismcode';
+import PrismCode from '../../components/Prismcode';
 
 function TransformMapToCurl(payload){
     return {

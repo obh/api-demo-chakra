@@ -1,10 +1,10 @@
 
 export default function InlineCode({ children }) {
     const divStyle = {
-        color: '#f8f8f2',
-        backgroundColor: '#272822',
-        borderRadius: '0.3rem',
-        padding: "1px 1px 2px 2px",
+        backgroundColor: '#ffeff0',
+        borderRadius: '0.2rem',
+        padding: "0.1rem .3rem .2rem",
+        overflowWrap : "break-word",
         //whiteSpace: "nowrap"
     }
     return (
