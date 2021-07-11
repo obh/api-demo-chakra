@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from "@chakra-ui/react"
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -13,9 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
     <ChakraProvider>
-      <HashRouter basename="/api-demo-chakra">
+      <BrowserRouter>
         <App />
-      </HashRouter>
+      </BrowserRouter>
     </ChakraProvider>
     </Provider>
   </React.StrictMode>,
