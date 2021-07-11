@@ -10,7 +10,8 @@ import {
     HStack,
     VStack,
 } from '@chakra-ui/react';
-  import { CheckIcon } from '@chakra-ui/icons';
+import { CheckIcon } from '@chakra-ui/icons';
+import Confetti from 'react-confetti'
 
 const checklist = [
     {
@@ -26,8 +27,7 @@ const checklist = [
     {
         "id": 2,
         "title": "Webhook" ,
-        "text": "Do test your webhook endpoint. Also verify the webhook signature for every request" + 
-            "You can also enable webhooks for failed and dropped payments by contacting techsupport.",
+        "text": "Do test your webhook endpoint and webhook signature verification. " 
     },
     {
         "id": 3,
@@ -42,14 +42,26 @@ const checklist = [
 ]
 
 function ThankYou(){
+  const width = 1400;
+  const height = 1000;
+  const [showConfetti, setShowConfetti] = React.useState(true)
+  const [numConfetti, setNumConfetti] = React.useState(250)
+
+  const intervalId = setInterval(() => {
+    if(numConfetti == 0){
+      setShowConfetti(false)
+    }
+    setNumConfetti(0)
+  }, 1000 * 4) 
     return (
+      <>
+      <Confetti width={width} height={height} tweenDuration={1000} run={showConfetti} numberOfPieces={numConfetti}/> 
         <Box p={4}>
           <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
-            <Heading fontSize={'3xl'}>This is the headline</Heading>
+            <Heading fontSize={'3xl'}>Congrats! You have completed this tutorial.</Heading>
             <Text color={'gray.600'} fontSize={'xl'}>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-              nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-              sed diam voluptua.
+              Once your integration is complete, be sure to go through the below checklist items to make
+              sure that your integration is safe and follows the best practices.
             </Text>
           </Stack>
     
@@ -69,6 +81,7 @@ function ThankYou(){
             </SimpleGrid>
           </Container>
         </Box>
+      </>
       );
 }
 
