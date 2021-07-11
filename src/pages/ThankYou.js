@@ -47,8 +47,8 @@ function ThankYou(){
   const [showConfetti, setShowConfetti] = React.useState(true)
   const [numConfetti, setNumConfetti] = React.useState(250)
 
-  const intervalId = setInterval(() => {
-    if(numConfetti == 0){
+  setInterval(() => {
+    if(numConfetti === 0){
       setShowConfetti(false)
     }
     setNumConfetti(0)

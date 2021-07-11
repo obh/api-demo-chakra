@@ -1,23 +1,14 @@
 import React from 'react'
 import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
     Alert,
     AlertIcon,
     Box,
     Badge,
     CircularProgress,
     CircularProgressLabel,
-    Flex,
     Grid,
     GridItem,
     Heading,
-    Link,
-    Tag,
-    TagLabel,
     Text,
     VStack,
   } from '@chakra-ui/react';
@@ -74,7 +65,6 @@ curl --request GET
     const description = "All redirection based payment flows take the customer away from your website to the " +
         "banks website. However, after customers confirm the payment on the bank website, they will be redirected" +
         "back to your website. The customer will be redirected to the `return_url`. "
-    const step = 1
 
     return (
     <Box bg="#fafafa">

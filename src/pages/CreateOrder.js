@@ -24,12 +24,18 @@ import {
   PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
-  Spacer, 
   Stack,
   Switch,
 } from '@chakra-ui/react';
-import { InfoOutlineIcon, LockIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { ValidateOrderId} from '../components/Validation'
+import { InfoOutlineIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons'
+import { ValidateOrderId, 
+  ValidateOrderAmount, 
+  ValidateOrderCurrency,
+  ValidateCustomerEmail,
+  ValidateCustomerPhone,
+  ValidateReturnUrl,
+  ValidateNotifyUrl
+  } from '../components/Validation'
 import InputBox from '../components/InputBox';
 import Code from './code/CreateOrderAPI';
 import Stepper from '../components/Stepper';
@@ -139,7 +145,6 @@ const CreateOrder = () => {
   const name = "create order api"
   const description = "The create order API is the first step to process payments. \
   This API will fetch you an order token which can be used to complete the payment."
-  const step = 0
   
   return (
     <div>
@@ -185,7 +190,7 @@ const CreateOrder = () => {
             </h2>
             <AccordionPanel pb={4}>   
               <InputBox group={CREATE_ORDER_GROUP} inputDefault={10.1} key="order_amount" inputName="Order amount" 
-                  inputParamKey="order_amount" inputValidator={ValidateOrderId}  />
+                  inputParamKey="order_amount" inputValidator={ValidateOrderAmount}  />
             </AccordionPanel>            
           </AccordionItem>
           <AccordionItem key="order_currency">
@@ -199,7 +204,7 @@ const CreateOrder = () => {
             </h2>
             <AccordionPanel pb={4}>   
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="INR" key="order_currency" inputName="Order Currency" 
-                  inputParamKey="order_currency" inputValidator={ValidateOrderId}  />
+                  inputParamKey="order_currency" inputValidator={ValidateOrderCurrency} />
             </AccordionPanel>            
           </AccordionItem>
           <AccordionItem key="customer_details">
@@ -214,9 +219,9 @@ const CreateOrder = () => {
             <AccordionPanel pb={4}>   
             <Text fontSize="md">You need to send customer details for every order.</Text>
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="techsupport@cashfree.com" key="customer_email" inputName="Customer Email" 
-                  inputParamKey="customer_email" inputValidator={ValidateOrderId}  />
+                  inputParamKey="customer_email" inputValidator={ValidateCustomerEmail}  />
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="9816512345" key="customer_phone" inputName="Customer Phone" 
-                  inputParamKey="customer_phone" inputValidator={ValidateOrderId}  />                  
+                  inputParamKey="customer_phone" inputValidator={ValidateCustomerPhone}  />                  
             </AccordionPanel>            
           </AccordionItem>
           <AccordionItem key="orders_meta">
@@ -238,9 +243,9 @@ const CreateOrder = () => {
              <Text pb={2} fontSize="md"> The notification url will be invoked as soon as order is successfully 
              paid. Use services like ngrok, webhook.site to test notifications.</Text> 
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="https://ngrok.io/cf/return?order={order_id}&token={order_token}" key="return_url" inputName="Return URL" 
-                  inputParamKey="return_url" inputValidator={ValidateOrderId}  />
+                  inputParamKey="return_url" inputValidator={ValidateReturnUrl}  />
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="https://ngrok.io/cf/notfiy.php" key="notify_url" inputName="Notification URL" 
-                  inputParamKey="notify_url" inputValidator={ValidateOrderId}  />                  
+                  inputParamKey="notify_url" inputValidator={ValidateNotifyUrl}  />                  
             </AccordionPanel>            
           </AccordionItem>
         </Accordion>

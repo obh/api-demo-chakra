@@ -2,7 +2,6 @@ import React from 'react'
 import {
     Alert,
     AlertIcon,
-    Button,
     CircularProgress,    
     CircularProgressLabel,
     Collapse,
@@ -15,19 +14,27 @@ import {
     Heading,
     HStack,
     Link,
-    LinkOverlay,
-    Spacer,
     Switch,
     Text,
     Tag,
     TagLabel,
   } from '@chakra-ui/react';
 
-import { LockIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import { LockIcon, UnlockIcon } from '@chakra-ui/icons'
 import Stepper from '../components/Stepper';
 import {stepData} from './CreateOrderData'
 import {CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../features/constants'
-import { ValidateOrderId} from '../components/Validation'
+import { 
+    ValidateCard, 
+    ValidateCardExpiryMM,
+    ValidateCardExpiryYY,
+    ValidateCardCVV,
+    ValidateUPIChannel,
+    ValidateUPIID,
+    ValidateNBCode,
+    ValidateAppChannel,
+    ValidateCustomerPhone
+} from '../components/Validation'
 import InputBox from '../components/InputBox';
 import InlineCode from '../components/InlineCode';
 import PrismCode from '../components/Prismcode';
@@ -74,12 +81,7 @@ function PrebuiltCheckout(props){
 
 function CustomCheckout(props){
     const [showAdvanced, setShowAdvanced] = React.useState(false)
-    const paymentUrlCode = 
-    `{
-..
-  "payment_link": "https://payments.cashfree.com/order#AqtC88khqWACIEPcXGgO",
-..
-}`
+    
     return (
         <div>        
         <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa">
@@ -144,22 +146,22 @@ function CardPay(props){
                 back to the merchant website. 
                 <InputBox group={CARD_PAY_GROUP} inputDefault={4242424242424242} 
                     key="card_number" inputName="Card Expiry" 
-                    inputParamKey="card_number" inputValidator={ValidateOrderId}  />
+                    inputParamKey="card_number" inputValidator={ValidateCard}  />
                 <Grid templateColumns="repeat(6, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
                     <InputBox group={CARD_PAY_GROUP} inputDefault={12} 
                         key="card_expiry_mm" inputName="Card Expiry" 
-                    inputParamKey="card_expiry_mm" inputValidator={ValidateOrderId}  />
+                    inputParamKey="card_expiry_mm" inputValidator={ValidateCardExpiryMM}  />
                     </GridItem>
                     <GridItem colSpan={2}>
                     <InputBox group={CARD_PAY_GROUP} inputDefault={24} 
                         key="card_expiry_yy" inputName="Card Expiry" 
-                    inputParamKey="card_expiry_yy" inputValidator={ValidateOrderId}  />
+                    inputParamKey="card_expiry_yy" inputValidator={ValidateCardExpiryYY}  />
                     </GridItem>
                     <GridItem colSpan={2}>
                     <InputBox group={CARD_PAY_GROUP} inputDefault={123} 
                         key="card_cvv" inputName="Card CVV" 
-                    inputParamKey="card_cvv" inputValidator={ValidateOrderId}  />
+                    inputParamKey="card_cvv" inputValidator={ValidateCardCVV}  />
                     </GridItem>
                 </Grid>
             </GridItem>
@@ -211,7 +213,7 @@ function NetBankingPay(props){
                     &nbsp;list of bank codes here.</Link></Text>
                 <InputBox group={NB_PAY_GROUP} inputDefault={3021} 
                     key="netbanking_bank_code" inputName="Bank Code" 
-                    inputParamKey="netbanking_bank_code" inputValidator={ValidateOrderId}  />
+                    inputParamKey="netbanking_bank_code" inputValidator={ValidateNBCode}  />
             </GridItem>
         <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
         <NBPayCode/>
@@ -254,10 +256,10 @@ function CustomAppPay(props){
                     &nbsp;list of all apps here.</Link></Text>
                 <InputBox group={APP_PAY_GROUP} inputDefault={"gpay"} 
                     key="channel" inputName="Channel" 
-                    inputParamKey="channel" inputValidator={ValidateOrderId}  />
+                    inputParamKey="channel" inputValidator={ValidateAppChannel}  />
                 <InputBox group={APP_PAY_GROUP} inputDefault={"9999912345"} 
                     key="phone" inputName="Phone" 
-                    inputParamKey="phone" inputValidator={ValidateOrderId}  />
+                    inputParamKey="phone" inputValidator={ValidateCustomerPhone}  />
             </GridItem>
         <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
         <AppPayCode/>
@@ -341,10 +343,10 @@ function UPIPay(props){
                 
                 <InputBox group={UPI_PAY_GROUP} inputDefault={"link"} 
                     key="channel" inputName="channel" 
-                    inputParamKey="channel" inputValidator={ValidateOrderId}  />
+                    inputParamKey="channel" inputValidator={ValidateUPIChannel}  />
                 <InputBox group={UPI_PAY_GROUP} inputDefault={"9999999999@ybl"} 
                     key="upi_id" inputName="upi_id" 
-                    inputParamKey="upi_id" inputValidator={ValidateOrderId}  />
+                    inputParamKey="upi_id" inputValidator={ValidateUPIID}  />
                 <Alert status="info" variant="subtle" mt={6}>
                 <AlertIcon />
                 <Text fontSize="sm">You need to pass the upi ID only when channel is set as <InlineCode>collect</InlineCode></Text>
@@ -409,7 +411,6 @@ function OrderPay(props){
     const name = "order pay api"
     const description = "To complete the payment you can either use a prebuilt checkout or build your own" +
         " custom checkout. Follow the steps below to see how these can be done!"
-    const step = 1
 
     return (
     <Box bg="#fafafa">

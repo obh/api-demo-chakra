@@ -1,7 +1,4 @@
-import { defaultStandaloneParam } from '@chakra-ui/react'
 import { createSlice } from '@reduxjs/toolkit'
-// import { startAnimation } from 'framer-motion/types/animation/utils/transitions'
-import InputData from '../../pages/CreateOrderData'
 import {CREATE_ORDER_GROUP, CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../constants'
 
 const initialState = { 
@@ -73,18 +70,18 @@ export const counterSlice = createSlice({
 
     updateParamValue: (state, action) => {
       const groupID = action.payload[0]
-      if(groupID == CREATE_ORDER_GROUP){
+      if(groupID === CREATE_ORDER_GROUP){
         state.createOrder[action.payload[1]] = action.payload[2]
         state.createOrderUpdatedKey = action.payload[1]
-      } else if(groupID == CARD_PAY_GROUP){
+      } else if(groupID === CARD_PAY_GROUP){
         state.orderPay[action.payload[1]] = action.payload[2]
         state.orderPayUpdatedKey = action.payload[1]
-      } else if(groupID == UPI_PAY_GROUP){
+      } else if(groupID === UPI_PAY_GROUP){
         state.upiPay[action.payload[1]] = action.payload[2]
         state.upiPayUpdatedKey = action.payload[1]
-      } else if(groupID == NB_PAY_GROUP){
+      } else if(groupID === NB_PAY_GROUP){
         state.nbPay[action.payload[1]] = action.payload[2]
-      } else if(groupID == APP_PAY_GROUP){
+      } else if(groupID === APP_PAY_GROUP){
         state.appPay[action.payload[1]] = action.payload[2]
         state.appPayUpdatedKey = action.payload[1]
       }

@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {
   Box,
   Flex,
@@ -16,15 +15,10 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 const Links = ['Dashboard', 'Projects', 'Team'];
 const LinkMap = {
   'Payments API Guide' : '/',
-  // 'Javascript' : '/pay_order'
 }
 
 const NavLink = ({children}) => ( 
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
+  <Link px={2} py={1} rounded={'md'} _hover={{
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
@@ -34,9 +28,7 @@ const NavLink = ({children}) => (
 );
 
 function MyNavLink(props) {
-  return <Link px={2}
-      py={1}
-      rounded={'md'}
+  return <Link px={2} py={1} rounded={'md'}
       _hover={{
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),

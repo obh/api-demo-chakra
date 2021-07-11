@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import PrismCode from '../../components/Prismcode';
 
 function TransformMapToCurl(payload){
@@ -11,7 +11,7 @@ function TransformMapToCurl(payload){
             }
         }
     }
-    if(payload.channel == "collect"){
+    if(payload.channel === "collect"){
         general["payment_method"]["upi"]["upi_id"] = payload.upi_id
     }
     return general

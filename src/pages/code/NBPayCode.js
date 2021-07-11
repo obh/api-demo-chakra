@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import PrismCode from '../../components/Prismcode';
 
 function TransformMapToCurl(payload){
@@ -32,7 +32,6 @@ function ListenToHook(){
     const curlBody = TransformMapToCurl(nbPayload)
 
     const curl = ComputePayload(curlBody)
-    // number of static lines above this is 6
     const lineHighlight = 7 + lineEdited
 
     return <PrismCode code={curl} language="js" highlightStart={lineHighlight} highlightEnd={lineHighlight} />
