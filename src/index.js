@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
     <ChakraProvider>
-      <HashRouter basename="/api-demo">
+      <HashRouter basename="/api-demo-chakra">
         <App />
       </HashRouter>
     </ChakraProvider>
