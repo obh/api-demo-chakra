@@ -46,17 +46,12 @@ function ComputePayload(curlBody){
 
 function ListenToHook(){
     const orderPayPayload = useSelector((state) => state.counter.orderPay)
-    console.log("THIS IS orderPayPayload -->" , orderPayPayload)
     const lineEdited = useSelector((state) => state.counter.orderPayUpdatedKey)
     const curlBody = TransformMapToCurl(orderPayPayload)
 
     const curl = ComputePayload(curlBody)
     // number of static lines above this is 6
     const lineHighlight = 4 + ComputeLinetoHighlight(lineEdited)
-
-    console.log("The map is --> ", JSON.stringify(curlBody, null, 2))
-    console.log("Updated code after change in any input value!")
-
     return <PrismCode code={curl} language="js" highlightStart={lineHighlight} highlightEnd={lineHighlight} />
 }
 

@@ -35,9 +35,6 @@ function ListenToHook(){
     // number of static lines above this is 6
     const lineHighlight = 7 + lineEdited
 
-    console.log("The map is --> ", JSON.stringify(curlBody, null, 2))
-    console.log("Updated code after change in any input value!")
-
     return <PrismCode code={curl} language="js" highlightStart={lineHighlight} highlightEnd={lineHighlight} />
 }
 

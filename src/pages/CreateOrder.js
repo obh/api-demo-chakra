@@ -145,7 +145,7 @@ const CreateOrder = () => {
   
   return (
     <div>
-      <Stepper activeIndex={1} stepDetails={stepData}/>
+      <Stepper activeIndex={0} stepDetails={stepData}/>
       <Grid
       pt={8}
       templateColumns="repeat(6, 1fr)"
@@ -259,7 +259,7 @@ const CreateOrder = () => {
         </GridItem>
     </Grid>
     <APIResponse />
-    <FooterNav nextPage="/order-pay"/>
+    <FooterNav nextPage="/pay-order"/>
     </div>
 )
 }

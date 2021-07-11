@@ -43,7 +43,7 @@ export const stepData = [
     },
     {
         "title": "Complete payment",
-        "description": "Redirect user to thank you page.",
+        "description": "Redirect user to a thank you page.",
     }
 ]
 
