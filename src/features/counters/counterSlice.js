@@ -2,14 +2,13 @@ import { defaultStandaloneParam } from '@chakra-ui/react'
 import { createSlice } from '@reduxjs/toolkit'
 // import { startAnimation } from 'framer-motion/types/animation/utils/transitions'
 import InputData from '../../pages/CreateOrderData'
-import {CREATE_ORDER_GROUP, CARD_PAY_GROUP, UPI_PAY_GROUP} from '../constants'
+import {CREATE_ORDER_GROUP, CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../constants'
 
 const initialState = { 
     value: 0,
     active_step: 0,
     order_id: 0,
     lineEdited: -1,
-    code: InputData,
 
     createOrder: {
       "order_id": "order_" + Date.now(),
@@ -39,6 +38,16 @@ const initialState = {
       "phone": "7760752123"
     },
     upiPayUpdatedKey: "",
+
+    nbPay: {
+      "netbanking_bank_code": "3021"
+    },
+
+    appPay: {
+      "channel": "gpay",
+      "phone": "9999912345"
+    },
+    appPayUpdatedKey: "",
 }
 
 
@@ -73,31 +82,19 @@ export const counterSlice = createSlice({
       } else if(groupID == UPI_PAY_GROUP){
         state.upiPay[action.payload[1]] = action.payload[2]
         state.upiPayUpdatedKey = action.payload[1]
+      } else if(groupID == NB_PAY_GROUP){
+        state.nbPay[action.payload[1]] = action.payload[2]
+      } else if(groupID == APP_PAY_GROUP){
+        state.appPay[action.payload[1]] = action.payload[2]
+        state.appPayUpdatedKey = action.payload[1]
       }
       console.log("updated param value")
     },
+  }
 
-    setInputParamValue: (state, action) => {      
-      function updateInputParam(input, action){
-        for(const item of input){         
-          if(item.type == "object"){
-            updateInputParam(item.properties, action)
-          }
-          else if(item.type == "string" && item.inputParamKey == action.payload[0]){
-            console.log("updating param in code: ", action.payload[0])
-            item.value = action.payload[1]
-            state.lineEdited = item.lineNum
-            console.log("Line updated => ", state.lineEdited)
-          }
-        }
-      }      
-      console.log("updating code...with action -> ", action)
-      updateInputParam(state.code, action)
-    }
-  },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, setOrderId, setInputParamValue, updateParamValue } = counterSlice.actions
+export const { increment, setOrderId, updateParamValue } = counterSlice.actions
 
 export default counterSlice.reducer

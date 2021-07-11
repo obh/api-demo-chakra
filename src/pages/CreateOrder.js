@@ -14,6 +14,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  Link,
   LinkOverlay,
   Text,
   Collapse,
@@ -37,44 +38,9 @@ import Stepper from '../components/Stepper';
 import { PrismCode } from '../components/Prismcode';
 import {CREATE_ORDER_GROUP} from '../features/constants'
 import {stepData, createOrderResponse} from './CreateOrderData'
+import FooterNav from '../components/FooterNav';
+import InlineCode from '../components/InlineCode';
 
-
-// function StatsCard(props) {
-//   const { paramId, stat } = props;
-//   const [value, setValue] = React.useState("")
-//   const [errors, setErrors] = React.useState("")
-  
-//   const dispatch = useDispatch()
-//   //const handleChange = (event) => setValue(event.target.value)
-
-//   function handleChange(event) {
-//     let err = Validate(paramId, event.target.value)
-//     dispatch(setOrderId(event.target.value))
-//     console.log(event)
-//     setValue(event.target.value)
-//     setErrors(err)
-//   }
-
-//   return (
-//       <Accordion allowToggle>
-//         <AccordionItem>
-//           <h2>
-//           <AccordionButton>
-//             <Box flex="1" textAlign="left">
-//                 {paramId}
-//             </Box>
-//             <AccordionIcon/>
-//           </AccordionButton>
-//           </h2>
-//           <AccordionPanel pb={4}>
-//             hello to the fucking world!
-//             {stat}
-//             <Input isInvalid={errors.length > 0} onBlur={handleChange} variant="outline" placeholder="Outline" />
-//           </AccordionPanel>
-//         </AccordionItem>
-//       </Accordion>
-//   );
-// }
 
 function DocInfoIcon(props){
   const {title, text} = props
@@ -106,28 +72,22 @@ function APIResponse(){
 
   
   return (
-    <div>
-      <Box height="50px" bg="#fafafa"></Box>
-      <Stack direction="row">      
-      
-      <Alert status="info" ml={4} mr={4} height="60px">        
+    <Box pl={4} pt={4} pr={4}>
+      <Heading as="h4" size="md">Response</Heading>
+      <Text>The response to the above API call contains the order object. You should save the 
+        <InlineCode>order_id</InlineCode> and <InlineCode>order_token</InlineCode> from the response in
+        your database. 
+      </Text>
+      <Box mt={4} borderWidth="1px" borderRadius="md">
+      <Stack pt={2} pb={4} spacing={4} direction="row">      
         {!showResponse ? <LockIcon w={6} h={6}  /> : <UnlockIcon w={6} h={6} />}
-        <Text ml={2} fontSize="smm">View api response 
-          <Switch ml={2} colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/> </Text>
-          <Spacer/>
-          <LinkOverlay href="/pay-order">
-            <Button rightIcon={<ArrowForwardIcon />} colorScheme="black" variant="outline">
-            Next Step
-            </Button>
-          </LinkOverlay>
-      </Alert>
-        
-        </Stack>
-        <Collapse in={showResponse} animateOpacity>
-       <Grid
-      pt={8}
-      templateColumns="repeat(6, 1fr)"
-      gap={4} bg="#fafafa" >
+        <Text fontSize="smm">View detailed api response</Text>        
+        <Switch ml={2} colorScheme="red" onChange={() => {setShowResponse(!showResponse)}}/> 
+      </Stack>
+      </Box>
+
+      <Collapse in={showResponse} animateOpacity>
+        <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa" >          
         <GridItem rowSpan={2} colSpan={3} >
         <div>      
           <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
@@ -173,7 +133,7 @@ function APIResponse(){
           highlightStart={startHighlight} highlightEnd={endHighlight} />
       </GridItem>
       </Grid></Collapse>
-      </div>
+      </Box>
   )
 }
 
@@ -299,6 +259,7 @@ const CreateOrder = () => {
         </GridItem>
     </Grid>
     <APIResponse />
+    <FooterNav nextPage="/order-pay"/>
     </div>
 )
 }

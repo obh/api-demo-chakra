@@ -4,6 +4,7 @@ import Landing from '../pages/Landing'
 import CreateOrder from '../pages/CreateOrder'
 //import PayOrder from './PayOrder'
 import OrderPay from '../pages/OrderPay'
+import ReturnHandling from '../pages/ReturnHandling'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -16,6 +17,7 @@ const Main = () => (
       <Route exact path='/' component={Landing}/>
       <Route path='/create-order' component={CreateOrder}/>
       <Route path='/pay-order' component={OrderPay}/>
+      <Route path='/return-order' component={ReturnHandling}/>
     </Switch>
   </main>
 )

@@ -10,25 +10,13 @@ import './App.css';
 
 
 function App() {
+  const divStyle = {
+    backgroundColor: '#fafafa',
+}
   return (
-    <div>
+    <div style={divStyle}>
         <CNavBar/>
-          {/* <Link to="two">Two</Link> */}
-          {/* //<Grid>
-              // h="800px" pt={8}
-              // templateColumns="repeat(6, 1fr)"
-              // gap={4} bg="#fafafa" >
-              //   <GridItem rowSpan={2} colSpan={3} >
-              //     <Box ml="4" mr="2"> */}
-                    <Main />
-            {/* //       </Box>
-            //     </GridItem>
-            //     <GridItem rowSpan={2} colSpan={3} >
-            //       <Box ml="2" mr="4">
-            //         <Code/>
-            //       </Box>
-            //     </GridItem>
-            // </Grid> */}
+            <Main />
             <Footer/>
       </div>
     );

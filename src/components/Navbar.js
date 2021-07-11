@@ -15,7 +15,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 const LinkMap = {
-  'Payments API Guide' : '/create-order',
+  'Payments API Guide' : '/',
   // 'Javascript' : '/pay_order'
 }
 

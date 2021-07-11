@@ -1,14 +1,11 @@
 import React from 'react'
 import {
-    Accordion,
-    AccordionButton,
-    AccordionItem,
-    AccordionIcon,
-    AccordionPanel,
     Alert,
     AlertIcon,
-    CircularProgress,
+    Button,
+    CircularProgress,    
     CircularProgressLabel,
+    Collapse,
     Box,
     Badge,
     Code,
@@ -16,21 +13,29 @@ import {
     Grid,
     GridItem,
     Heading,
+    HStack,
+    Link,
+    LinkOverlay,
+    Spacer,
+    Switch,
     Text,
     Tag,
     TagLabel,
-    ListItem,
-    UnorderedList
   } from '@chakra-ui/react';
+
+import { LockIcon, UnlockIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import Stepper from '../components/Stepper';
 import {stepData} from './CreateOrderData'
-import {CARD_PAY_GROUP, UPI_PAY_GROUP} from '../features/constants'
+import {CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../features/constants'
 import { ValidateOrderId} from '../components/Validation'
 import InputBox from '../components/InputBox';
 import InlineCode from '../components/InlineCode';
 import { PrismCode } from '../components/Prismcode';
+import FooterNav from '../components/FooterNav';
 import OrderPayCode from './code/CardPayCode'
 import UPIPayCode from './code/UPIPayCode';
+import NBPayCode from './code/NBPayCode';
+import AppPayCode from './code/AppPayCode';
 
 function PrebuiltCheckout(props){
     const paymentUrlCode = 
@@ -46,7 +51,7 @@ function PrebuiltCheckout(props){
             <TagLabel>Prebuilt Checkout</TagLabel>
         </Tag>
         <CircularProgress  ml={2} value={10} color="green.400" size="40px" thickness="6px">
-          <CircularProgressLabel>5 min</CircularProgressLabel>
+          <CircularProgressLabel><b>5 min</b></CircularProgressLabel>
         </CircularProgress>
         <Box  pt={4} pl={2}>
         <Text color="#2a2a2a" mb={8}>
@@ -68,6 +73,7 @@ function PrebuiltCheckout(props){
 }
 
 function CustomCheckout(props){
+    const [showAdvanced, setShowAdvanced] = React.useState(false)
     const paymentUrlCode = 
     `{
 ..
@@ -75,17 +81,17 @@ function CustomCheckout(props){
 ..
 }`
     return (
-        <>
-        <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa" >
+        <div>        
+        <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa">
         <GridItem ml={4} mr={2} rowSpan={2} colSpan={6}>
         <Tag size="lg" colorScheme="telegram" borderRadius="full">
             <TagLabel>Custom Checkout</TagLabel>
         </Tag>
-        <CircularProgress  ml={2} value={40} color="green.400" size="40px" thickness="6px">
-          <CircularProgressLabel>20 min</CircularProgressLabel>
+        <CircularProgress  ml={2} value={40} color="green.400" size="40px" thickness="4px">
+          <CircularProgressLabel><b>20 min</b></CircularProgressLabel>
         </CircularProgress>
         <Box  pt={4} pl={2}>
-        <Text color="#2a2a2a" mb={8}>
+        <Text color="#2a2a2a" mb={8} ml={4}>
             The custom checkout allows you to build a completley customized payment flow.
             You must build your own user interface to collect payment details and use the below APIs to
             process payments. If you accept card details on your page you might have to look at scope 
@@ -94,10 +100,22 @@ function CustomCheckout(props){
         </Box>
         </GridItem>
         </Grid>
+        <HStack ml={8}>
+        {!showAdvanced ? <LockIcon w={6} h={6}  /> : <UnlockIcon w={6} h={6} />}
+        <Text ml={2} fontSize="smm">View Custom checkout details
+          <Switch ml={2} colorScheme="red" onChange={() => {setShowAdvanced(!showAdvanced)}}/> 
+        </Text>          
+        </HStack>
+        <Collapse in={showAdvanced} animateOpacity>
         <CardPay/>
         <Divider></Divider>
         <UPIPay/>
-        </>
+        <Divider/>
+        <NetBankingPay/>
+        <Divider/>
+        <CustomAppPay/>
+        </Collapse>
+        </div>
     )
 }
 
@@ -160,6 +178,98 @@ function CardPay(props){
         <InlineCode>action</InlineCode> parameter will be <InlineCode>link</InlineCode>. 
         The <InlineCode>data</InlineCode> payload will contain the 
         actual parameters to redirect. 
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
+            <PrismCode code={cardPayResponse} language="js"/>
+        </GridItem>
+    </Grid>
+    )
+}
+
+function NetBankingPay(props){
+    const cardPayResponse = `
+{
+    "payment_method": "netbanking",
+    "channel": "link",
+    "action": "link",
+    "data": {
+        "url": "https://payments.cashfree.com/api/redirect/v1/gateway/9CJh6ksdqpZaQ27c5dzl0ed24239e0d9f67e1a4d647facdec2de",
+        "payload": null,
+        "content_type": null,
+        "method": null
+    }
+}`
+    return (
+        <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa">
+            <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
+                <Heading as="h4" size="md">Net Banking</Heading>
+                <Text>To accept payments directly from customers bank account you need to integrate with the 
+                net banking mode. This mode refers to all payments where customers pay using the internet banking
+                portal provided by their respective banks. </Text>
+                <Text mb={6}>You can view the complete 
+                    <Link href="https://dev.cashfree.com/payment-gateway/payments/netbanking" color="blue" isExternal> 
+                    &nbsp;list of bank codes here.</Link></Text>
+                <InputBox group={NB_PAY_GROUP} inputDefault={3021} 
+                    key="netbanking_bank_code" inputName="Bank Code" 
+                    inputParamKey="netbanking_bank_code" inputValidator={ValidateOrderId}  />
+            </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
+        <NBPayCode/>
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
+        <Heading as="h5" size="sm">Response</Heading>
+        A successful response to the above request will return a redirection link. The merchant needs to
+        redirect the customer to this link which will take them to the bank's internet banking portal.
+        After the user enters their credentials and completes the payment, they will be redirected back
+        to the merchant website. 
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
+            <PrismCode code={cardPayResponse} language="js"/>
+        </GridItem>
+    </Grid>
+    )
+}
+
+function CustomAppPay(props){
+    const cardPayResponse = `
+{
+    "payment_method": "app",
+    "channel": "phonepe",
+    "action": "link",
+    "data": {
+        "url": "https://mercury-t2.phonepe.com/transact?token=OWNiZTY0NjI5MTBiNzJkMDNlZjE2YThkOTYyM2EyNzU3MDg3Y2E5NDFmODU4Y2FkOTU5OGQ3Yzk0ZWU2YmIwYzU2NmE5NDA5ZTgwOTZiYWM2YmUwMzA4MzZkMzQ6YzI3MTIwMTRjNWUwNjQ0MjIxMjA5YzAzZDM2NWExOTQ",
+        "payload": null,
+        "content_type": null,
+        "method": null
+    }
+}`
+    return (
+        <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa">
+            <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
+                <Heading as="h4" size="md">Apps</Heading>
+                <Text>Cashfree can help you accept payments through many different apps. These apps can 
+                    range from Google Pay, Amazon pay, Paytm, Phonepe etc. </Text>
+                <Text mb={6}>You can view 
+                    <Link href="https://dev.cashfree.com/payment-gateway/payments/netbanking" color="blue" isExternal> 
+                    &nbsp;list of all apps here.</Link></Text>
+                <InputBox group={APP_PAY_GROUP} inputDefault={"gpay"} 
+                    key="channel" inputName="Channel" 
+                    inputParamKey="channel" inputValidator={ValidateOrderId}  />
+                <InputBox group={APP_PAY_GROUP} inputDefault={"9999912345"} 
+                    key="phone" inputName="Phone" 
+                    inputParamKey="phone" inputValidator={ValidateOrderId}  />
+            </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>   
+        <AppPayCode/>
+        </GridItem>
+        <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
+        <Heading as="h5" size="sm">Response</Heading>
+        Most apps have a redirection flow where Cashfree will return you a link using which the customer
+        can complete the payment. This response is quite similar to the the response for cards and net banking.
+
+        The response for Google pay is unique because it requires no further action from the user. Once you make
+        the above API call, Cashfree will automatically send a notification to the user on their GPay app 
+        to accept the payment. 
         </GridItem>
         <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
             <PrismCode code={cardPayResponse} language="js"/>
@@ -266,11 +376,24 @@ function UPIPay(props){
                  onMouseEnter={() => {setStartHighlight(20); setEndHighlight(32)}}
                  onMouseLeave={() => {setStartHighlight(0); setEndHighlight(-1)}}>
               <Heading size="md" mb={4}>channel == link</Heading> 
-            <Text mb={4}>If channel is set as qrcode, cashfree will return a UIP QR code which can be displayed
+            <Text mb={4}>If channel is set as qrcode, cashfree will return a UPI QR code which can be displayed
             to the customer. The customer can scan the QR code using any UPI application and complete the payment.
             Once the payment is completed we will send you a webhook notification with the payment status. 
             </Text>
             Use to img tag to display this qrcode. <Code>&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhE...." /&gt;</Code>
+            </Box>   
+            <Box mt={8} ml={4} mr={4} borderWidth="1px" borderRadius="lg" overflow="hidden"          
+                 pt={2} pb={2} pr={2} pl={2}
+                 onMouseEnter={() => {setStartHighlight(34); setEndHighlight(44)}}
+                 onMouseLeave={() => {setStartHighlight(0); setEndHighlight(-1)}}>
+              <Heading size="md" mb={4}>channel == collect</Heading> 
+            <Text mb={4}>If channel is set as collect, Cashfree will directly send the UPI request to customers UPI app.
+            The next step for the merchant is to call the /order api to get the order status. Alternatively, the
+            merchant can also wait for a webhook to be received once customer approves the payment request. 
+            </Text>
+            If the merchant does not approve the UPI request, the merchant might not receive any webhook. However, 
+            Cashfree has a provision to close out all payments after a configurable time, in which case the merchant
+            will receive a webhook with USER_DROPPED payment status. 
             </Box>   
         </GridItem>         
         <GridItem rowSpan={2} colSpan={3} ml={6} mr={4}>  
@@ -289,11 +412,9 @@ function OrderPay(props){
     const step = 1
 
     return (
-        <div>
+    <Box bg="#fafafa">
       <Stepper activeIndex={1} stepDetails={stepData}/>
-      {/* <Grid pt={8} templateColumns="repeat(6, 1fr)" gap={4} bg="#fafafa" >
-        <GridItem rowSpan={2} colSpan={3}> */}
-          <Box ml="4" mr="2" bg="#fafafa">
+          <Box ml="4" mr="4">
             <Box pb={4}>
                 <Heading pb={2} as="h2" size="xl">
                     <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 2 </Badge>
@@ -302,12 +423,12 @@ function OrderPay(props){
             <Text fontSize="xl">{description}</Text>
             </Box>                
           </Box>
-        {/* </GridItem> */}
-      {/* </Grid> */}
       <PrebuiltCheckout/>        
       <Divider />
       <CustomCheckout/>
-        </div>
+      <Divider mt={2}/>
+      <FooterNav prevPage="/create-order" nextPage="/return-order"/>
+    </Box>
     )
 }
 
