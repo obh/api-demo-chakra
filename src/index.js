@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
     <ChakraProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/docsdemo">
         <App />
       </BrowserRouter>
     </ChakraProvider>

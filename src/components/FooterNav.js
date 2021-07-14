@@ -1,11 +1,11 @@
 import React from 'react'
 import {
   HStack,
-  Link,
   Button,
   Spacer
 } from '@chakra-ui/react';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import {Link} from 'react-router-dom'
 
 function FooterNav(props){
   const {prevPage, nextPage} = props

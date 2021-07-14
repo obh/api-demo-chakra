@@ -3,7 +3,6 @@ import {
   Flex,
   Image,
   HStack,
-  Link,
   IconButton,
   Button,
   useDisclosure,
@@ -11,29 +10,24 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 const LinkMap = {
   'Payments API Guide' : '/',
 }
 
-const NavLink = ({children}) => ( 
-  <Link px={2} py={1} rounded={'md'} _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={children.key}>
-    {children}
-  </Link>
-);
-
 function MyNavLink(props) {
-  return <Link px={2} py={1} rounded={'md'}
+  
+  return (<>
+      <Link px={2} py={1} rounded={'md'}
       _hover={{
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
-      href={props.href}>{props.val}</Link>
+      to={props.href}>{props.val}</Link></>)
 }
 
 function CNavBar() {
@@ -68,16 +62,6 @@ function CNavBar() {
             <Link px={2} py={1} rounded={'md'} isExternal href="https://dev.cashfree.com"><Button>Docs</Button></Link>
           </Flex>
         </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
       </Box>
         
       {/* <Box p={4}>Main Content Here</Box> */}

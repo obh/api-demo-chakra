@@ -6,11 +6,10 @@ import {
     Button,
     Stack,
     Icon,
-    LinkOverlay,
     useColorModeValue,
     createIcon,
   } from '@chakra-ui/react';
-import { Link as ReachLink } from "@reach/router"
+import { Link } from 'react-router-dom';
 
 export default function CallToActionWithAnnotation() {
   return (
@@ -26,8 +25,9 @@ export default function CallToActionWithAnnotation() {
             These APIs will help you understand the entire integration process. 
           </Text>
           <Stack direction={'column'} spacing={3} align={'center'} alignSelf={'center'} position={'relative'}>
-            <LinkOverlay href="/create-order"><Button colorScheme={'green'}  bg={'green.400'} rounded={'full'}
-              _hover={{ bg: 'green.500', }}> Get Started</Button></LinkOverlay>
+           
+            <Link to="/create-order"><Button colorScheme={'green'}  bg={'green.400'} rounded={'full'}
+              _hover={{ bg: 'green.500', }}> Get Started</Button></Link>
             <Box><Icon as={Arrow} color={useColorModeValue('gray.800', 'gray.300')} w={71} position={'absolute'} right={-71}
                 top={'10px'}/> 
                 <Text fontSize={'lg'} fontFamily={'Caveat'} position={'absolute'} right={'-125px'} top={'-15px'} transform={'rotate(10deg)'}>
