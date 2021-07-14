@@ -12,13 +12,13 @@ function FooterNav(props){
 
   return (
     <HStack ml={4} mr={4} mt={8}>
-    {prevPage ? <Link href={prevPage}>
+    {prevPage ? <Link to={prevPage}>
       <Button leftIcon={<ArrowBackIcon />} colorScheme="black" variant="outline">
         Previous Step
       </Button>
     </Link> : null}
     <Spacer/>
-    {nextPage ? <Link href={nextPage}>
+    {nextPage ? <Link to={nextPage}>
       <Button rightIcon={<ArrowForwardIcon />} colorScheme="black" variant="outline">
         Next Step
       </Button>
