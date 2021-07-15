@@ -112,7 +112,7 @@ curl --request GET
             <PrismCode code={paymentUrlCode} language="js" ></PrismCode></GridItem>
         </Grid>
         </Box>
-        <FooterNav nextPage={"/thankyou"}/>
+        <FooterNav prevPage={"/pay-order"} nextPage={"/thankyou"}/>
     </Box>
     )
 }
