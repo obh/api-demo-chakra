@@ -22,7 +22,7 @@ import {
 
 import { LockIcon, UnlockIcon } from '@chakra-ui/icons'
 import Stepper from '../components/Stepper';
-import {stepData} from './CreateOrderData'
+import {stepData} from './APIStepper'
 import {CARD_PAY_GROUP, UPI_PAY_GROUP, NB_PAY_GROUP, APP_PAY_GROUP} from '../features/constants'
 import { 
     ValidateCard, 

@@ -42,7 +42,7 @@ import Code from './code/CreateOrderAPI';
 import Stepper from '../components/Stepper';
 import PrismCode from '../components/Prismcode';
 import {CREATE_ORDER_GROUP} from '../features/constants'
-import {stepData, createOrderResponse} from './CreateOrderData'
+import {stepData} from './APIStepper'
 import FooterNav from '../components/FooterNav';
 import InlineCode from '../components/InlineCode';
 
@@ -67,6 +67,36 @@ function DocInfoIcon(props){
   </Popover>
   )
 }
+
+const createOrderResponse = `{
+  "cf_order_id": 498327264,
+  "order_id": "order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a",
+  "entity": "order",
+  "order_currency": "INR",
+  "order_amount": 1.01,
+  "order_expiry_time": "2021-08-05T18:19:18+05:30",
+  "customer_details": {
+    "customer_id": "718234",
+    "customer_name": null,
+    "customer_email": "john@cashfree.com",
+    "customer_phone": "9908734801"
+  },
+  "order_meta": {
+    "return_url": null,
+    "notify_url": "https://cashfree.com/pg/process_webhook",
+    "payment_methods": null
+  },
+  "settlement_details": {
+    "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/settlements?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+  },
+  "payment_attempts": {
+    "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/payments?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+  },
+  "order_status": "ACTIVE",
+  "order_token": "AqtC88khqWACIEPcXGgO",
+  "order_note": null
+}
+`
 
 function APIResponse(){
   const [startHighlight, setStartHighlight] = React.useState(0);
