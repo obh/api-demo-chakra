@@ -11,6 +11,7 @@ function TransformMapToCurl(payload){
     "order_amount": payload.order_amount,
     "order_currency": payload.order_currency,
     "customer_details": {
+      "customer_id": payload.customer_id,
       "customer_email": payload.customer_email,
       "customer_phone": payload.customer_phone
     },
@@ -29,14 +30,16 @@ function ComputeLinetoHighlight(key){
       return 2
     case "order_currency":
       return 3
-    case "customer_email":
+    case "customer_id":
       return 5
-    case "customer_phone":
+    case "customer_email":
       return 6
+    case "customer_phone":
+      return 7
     case "return_url": 
-      return 8
-    case "notify_url":
       return 9
+    case "notify_url":
+      return 10
     default:
       return -100 // no line to highlight
   }

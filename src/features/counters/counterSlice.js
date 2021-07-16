@@ -11,6 +11,7 @@ const initialState = {
       "order_id": "order_" + Date.now(),
       "order_amount": 10.12,
       "order_currency": "INR",
+      "customer_id": "12345",
       "customer_email": "techsupport@cashfree.com",
       "customer_phone": "9816512345",
       "return_url": "https://ngrok.io/cf/return?order={order_id}&token={order_token}",

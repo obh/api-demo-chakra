@@ -31,6 +31,7 @@ import { InfoOutlineIcon, LockIcon, UnlockIcon } from '@chakra-ui/icons'
 import { ValidateOrderId, 
   ValidateOrderAmount, 
   ValidateOrderCurrency,
+  ValidateCustomerID,
   ValidateCustomerEmail,
   ValidateCustomerPhone,
   ValidateReturnUrl,
@@ -217,7 +218,11 @@ const CreateOrder = () => {
             </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>   
-            <Text fontSize="md">You need to send customer details for every order.</Text>
+            <Text fontSize="md">You need to send customer details for every order. 
+            CustomerID is a unique identifier at your end which you need to pass to Cashfree. 
+            If you do not have such an identifier, you can provide the phone number in this field.</Text>
+              <InputBox group={CREATE_ORDER_GROUP} inputDefault="12345" key="customer_id" inputName="Customer ID" 
+                  inputParamKey="customer_id" inputValidator={ValidateCustomerID}  />
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="techsupport@cashfree.com" key="customer_email" inputName="Customer Email" 
                   inputParamKey="customer_email" inputValidator={ValidateCustomerEmail}  />
               <InputBox group={CREATE_ORDER_GROUP} inputDefault="9816512345" key="customer_phone" inputName="Customer Phone" 

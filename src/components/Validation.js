@@ -1,7 +1,8 @@
 import validator from 'validator';
 
-const orderIdRegex = new RegExp(/^[ A-Za-z0-9_-]*$/)
+const orderIdRegex = new RegExp(/^[A-Za-z0-9_-]*$/)
 const orderAmountRegex = new RegExp(/^\d+(\.\d{0,2})?$/)
+const customerIDRegex = new RegExp(/^[A-Za-z0-9]*$/)
 const emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 const phoneRegex = new RegExp(/^[6-9]\d{9}$/)
 const cardExpiryMMRegex = new RegExp(/^[0-9]{2}$/)
@@ -37,9 +38,16 @@ export function ValidateOrderCurrency(orderCurrency){
     return [orderCurrency, null]
 }
 
+export function ValidateCustomerID(customerId){
+    if(!customerIDRegex.exec(customerId)){
+        return [null, "customerId is not valid."]
+    }
+    return [customerId, null]
+}
+
 export function ValidateCustomerEmail(email){
     if(!emailRegex.exec(email)){
-        return [null, "It seems that email is not valid."]
+        return [null, "email is not valid."]
     }
     return [email, null]
 }
