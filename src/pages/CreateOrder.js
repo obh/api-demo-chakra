@@ -92,6 +92,7 @@ const createOrderResponse = `{
   "payment_attempts": {
     "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/payments?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
   },
+  "payment_link": "https://prod.cashfree.com/pgbillpaywebapp/#DYJNGsCOOeK8XozEWHjI",
   "order_status": "ACTIVE",
   "order_token": "AqtC88khqWACIEPcXGgO",
   "order_note": null
