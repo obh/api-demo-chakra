@@ -18,9 +18,9 @@ function TransformMapToCurl(payload){
 function ComputePayload(curlBody){
   const staticPayload = [
     "curl  --request POST", 
-    " --url https://gamma.cashfree.com/api/v1/orders",
+    " --url https://sandbox.cashfree.com/pg/orders/pay",
     " --header 'Content-Type: application/json'",
-    " --header 'x-api-version: 2021-05-22'",
+    " --header 'x-api-version: 2021-05-21'",
     " --data '"  
   ]
   return staticPayload.join('\n') + JSON.stringify(curlBody, null, 2) + "'\n";

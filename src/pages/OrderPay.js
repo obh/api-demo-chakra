@@ -48,7 +48,7 @@ function PrebuiltCheckout(props){
     const paymentUrlCode = 
     `{
 ..
-  "payment_link": "https://payments.cashfree.com/order#AqtC88khqWACIEPcXGgO",
+  "payment_link": "https://sandbox.cashfree.com/pg/redirect/order#AqtC88khqWACIEPcXGgO",
 ..
 }`
     return (
@@ -128,7 +128,7 @@ function CardPay(props){
     "channel": "link",
     "action": "link",
     "data": {
-        "url": "https://prod.cashfree.com/pgnextgenapi-test/redirect/v1/gateway/9CJh6ksdqpZaQ27c5dzlfbc750480086fbd218881252a3d4fd62",
+        "url": "https://sandbox.cashfree.com/pg/redirect/9CJh6ksdqpZaQ27c5dzlfbc750480086fbd218881252a3d4fd62",
         "payload": null,
         "content_type": null,
         "method": null
@@ -195,7 +195,7 @@ function NetBankingPay(props){
     "channel": "link",
     "action": "link",
     "data": {
-        "url": "https://payments.cashfree.com/api/redirect/v1/gateway/9CJh6ksdqpZaQ27c5dzl0ed24239e0d9f67e1a4d647facdec2de",
+        "url": "https://sandbox.cashfree.com/pg/redirect/9CJh6ksdqpZaQ27c5dzl0ed24239e0d9f67e1a4d647facdec2de",
         "payload": null,
         "content_type": null,
         "method": null
@@ -415,7 +415,7 @@ function OrderPay(props){
     return (
     <Box bg="#fafafa">
       <Stepper activeIndex={1} stepDetails={stepData}/>
-          <Box ml="4" mr="4">
+        <Box ml="4" mr="4">
             <Box pb={4}>
                 <Heading pb={2} as="h2" size="xl">
                     <Badge variant="outline" colorScheme="blue"  fontSize="0.7em" mr={2}> 2 </Badge>
@@ -423,7 +423,7 @@ function OrderPay(props){
                 </Heading>
             <Text fontSize="xl">{description}</Text>
             </Box>                
-          </Box>
+        </Box>
       <PrebuiltCheckout/>        
       <Divider />
       <CustomCheckout/>

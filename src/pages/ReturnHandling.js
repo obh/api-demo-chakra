@@ -23,7 +23,7 @@ function ReturnHandling(props){
     `
 > Request
 curl --request GET 
-    --url https://next.cashfree.com/api/v1/orders/<your_order_id> 
+    --url https://sandbox.cashfree.com/pg/orders/<your_order_id> 
     --header 'Content-Type: application/json' 
     --header 'x-api-version: 2021-05-22' 
     --header 'x-client-id: <app_id>' 
@@ -53,11 +53,12 @@ curl --request GET
     "order_status": "PAID",
     "order_token": "TTb06dKJGhWa20VTcm1n",
     "payment_attempts": {
-      "url": "https://prod.cashfree.com/pgbillpaywebapp/#/api/v1/payments?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
+      "url": "https://sandbox.cashfree.com/pg/payments?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
     },
     "settlement_details": {
-      "url": "https://prod.cashfree.com/pgnextgenapi-test/api/v1/settlements?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
-    }
+      "url": "https://sandbox.cashfree.com/pg/settlements?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
+    },
+    "payment_link": "https://sandbox.cashfree.com/pg/redirect/#TTb06dKJGhWa20VTcm1n",
   }
 `
 
