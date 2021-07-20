@@ -10,6 +10,7 @@ import {
     SimpleGrid,
     CircularProgressLabel
  } from '@chakra-ui/react'
+ import {Link} from 'react-router-dom'
 
  function Stepper(props){
     const  {activeIndex, stepDetails} = props;    
@@ -22,14 +23,16 @@ import {
                 {stepDetails.map((element, index) => {
                     return(
                         <React.Fragment key={index}>
+                            <Link to={element.link}>
                             <CircularProgress value={index <= activeIndex ? 100 : 0} color="green.400">
                                 {/* because array index starts from 0 and not 1 */}
                                 <CircularProgressLabel>{index + 1}</CircularProgressLabel>
-                            </CircularProgress>
+                            </CircularProgress>  </Link>
                             {/* <Text color={index == activeIndex ? "black": "gray"}>{element.title}</Text> */}
                             {maxLen !== index + 1 ? 
                             <Progress value={index < activeIndex ? 100 : 0}  colorScheme="green" 
-                                width="150px" />:null }
+                                width="150px" height="0.5rem" />:null }
+                              
                         </React.Fragment>
                     )
                 })}
