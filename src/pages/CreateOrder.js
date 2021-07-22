@@ -69,33 +69,37 @@ function DocInfoIcon(props){
 }
 
 const createOrderResponse = `{
-  "cf_order_id": 498327264,
-  "order_id": "order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a",
-  "entity": "order",
-  "order_currency": "INR",
-  "order_amount": 1.01,
-  "order_expiry_time": "2021-08-05T18:19:18+05:30",
+  "cf_order_id": 1539553,
+  "created_at": "2021-07-19T16:13:35+05:30",
   "customer_details": {
-    "customer_id": "718234",
+    "customer_id": "7112AAA812234",
     "customer_name": null,
     "customer_email": "john@cashfree.com",
     "customer_phone": "9908734801"
   },
+  "entity": "order",
+  "order_amount": 5.01,
+  "order_currency": "INR",
+  "order_expiry_time": "2021-08-18T16:13:34+05:30",
+  "order_id": "order_271vWwzSQOHe01ZVXpEcguVxQSRqr",
   "order_meta": {
-    "return_url": https://cashfree.com/pg/return?order_id={order_id}&order_token={order_token},
-    "notify_url": "https://cashfree.com/pg/process_webhook",
+    "return_url": "https://b8af79f41056.eu.ngrok.io?order_id={order_id}&order_token={order_token}",
+    "notify_url": "https://b8af79f41056.eu.ngrok.io/webhook.php",
     "payment_methods": null
   },
-  "settlement_details": {
-    "url": "https://sandbox.cashfree.com/pg/settlements?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+  "order_note": null,
+  "order_status": "PAID",
+  "order_token": "BtJEHHxOB9bFpNsaHmEL",
+  "payment_link": "https://payments-test.cashfree.com/order/#BtJEHHxOB9bFpNsaHmEL",
+  "payments": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/payments"
   },
-  "payment_attempts": {
-    "url": "https://sandbox.cashfree.com/pg/payments?order_id=order_18481uwTfzyNLoNc8RAC5ojOSv3Xv2a"
+  "refunds": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/refunds"
   },
-  "payment_link": "https://sandbox.cashfree.com/pg/redirect/#DYJNGsCOOeK8XozEWHjI",
-  "order_status": "ACTIVE",
-  "order_token": "AqtC88khqWACIEPcXGgO",
-  "order_note": null
+  "settlements": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/settlements"
+  }
 }
 `
 
