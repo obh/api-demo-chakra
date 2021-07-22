@@ -31,35 +31,38 @@ curl --request GET
 }
 > Sample Response
 {
-    "cf_order_id": 497346692,
-    "created_at": "2021-07-05T18:00:34+05:30",
-    "customer_details": {
-      "customer_id": "8474090552",
-      "customer_name": "Shari Gottlieb",
-      "customer_email": "mani@cashfree.com",
-      "customer_phone": "8474090552"
-    },
-    "entity": "order",
-    "order_amount": 23.12,
-    "order_currency": "INR",
-    "order_expiry_time": "2021-07-06T16:10:44+05:30",
-    "order_id": "order_18481utcGyOSFbFU8o9t8NpEU6tCkTD",
-    "order_meta": {
-      "return_url": "https://f54a59be8f4e.ngrok.io/pr/return.php?env=PROD&order_id={order_id}&token={order_token}",
-      "notify_url": "https://f54a59be8f4e.ngrok.io/pr/return.php?env=PROD",
-      "payment_methods": null
-    },
-    "order_reason": "some order note here",
-    "order_status": "PAID",
-    "order_token": "TTb06dKJGhWa20VTcm1n",
-    "payment_attempts": {
-      "url": "https://sandbox.cashfree.com/pg/payments?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
-    },
-    "settlement_details": {
-      "url": "https://sandbox.cashfree.com/pg/settlements?order_id=order_18481utcGyOSFbFU8o9t8NpEU6tCkTD"
-    },
-    "payment_link": "https://sandbox.cashfree.com/pg/redirect/#TTb06dKJGhWa20VTcm1n",
+  "cf_order_id": 1539553,
+  "created_at": "2021-07-19T16:13:35+05:30",
+  "customer_details": {
+    "customer_id": "7112AAA812234",
+    "customer_name": null,
+    "customer_email": "john@cashfree.com",
+    "customer_phone": "9908734801"
+  },
+  "entity": "order",
+  "order_amount": 5.01,
+  "order_currency": "INR",
+  "order_expiry_time": "2021-08-18T16:13:34+05:30",
+  "order_id": "order_271vWwzSQOHe01ZVXpEcguVxQSRqr",
+  "order_meta": {
+    "return_url": "https://b8af79f41056.eu.ngrok.io?order_id={order_id}&order_token={order_token}",
+    "notify_url": "https://b8af79f41056.eu.ngrok.io/webhook.php",
+    "payment_methods": null
+  },
+  "order_note": null,
+  "order_status": "PAID",
+  "order_token": "BtJEHHxOB9bFpNsaHmEL",
+  "payment_link": "https://payments-test.cashfree.com/order/#BtJEHHxOB9bFpNsaHmEL",
+  "payments": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/payments"
+  },
+  "refunds": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/refunds"
+  },
+  "settlements": {
+    "url": "https://sandbox.cashfree.com/pg/orders/order_271vWwzSQOHe01ZVXpEcguVxQSRqr/settlements"
   }
+}
 `
 
     const name = "return url handling"
